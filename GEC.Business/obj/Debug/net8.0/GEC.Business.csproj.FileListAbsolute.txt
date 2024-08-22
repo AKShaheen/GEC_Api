@@ -1,0 +1,17 @@
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Business.deps.json
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Business.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Business.pdb
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.AssemblyInfoInputs.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.AssemblyInfo.cs
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.csproj.CoreCompileInputs.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\refint\GEC.Business.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.pdb
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\ref\GEC.Business.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Infrastructure.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Infrastructure.pdb
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.csproj.AssemblyReference.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Busi.77CB9957.Up2Date
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Business.runtimeconfig.json
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.genruntimeconfig.cache

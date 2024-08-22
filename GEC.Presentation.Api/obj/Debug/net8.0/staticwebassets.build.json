@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IzOM1UEkvnLWspsUvmMS93rRktq76mV8JDea71mdMAs=",
+  "Source": "GEC.Presentation.Api",
+  "BasePath": "_content/GEC.Presentation.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

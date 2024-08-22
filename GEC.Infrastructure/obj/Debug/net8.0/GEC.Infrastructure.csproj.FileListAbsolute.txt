@@ -1,0 +1,14 @@
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\bin\Debug\net8.0\GEC.Infrastructure.deps.json
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\bin\Debug\net8.0\GEC.Infrastructure.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\bin\Debug\net8.0\GEC.Infrastructure.pdb
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.AssemblyInfo.cs
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\refint\GEC.Infrastructure.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.pdb
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\ref\GEC.Infrastructure.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\bin\Debug\net8.0\GEC.Infrastructure.runtimeconfig.json
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.genruntimeconfig.cache
