@@ -8,6 +8,6 @@ namespace GEC.Business.Interfaces
 {
     public interface IProductService
     {
-        Task<ProductDto> GetAllAsync();
+        Task<List<ProductDto>> GetAllAsync();
     }
 }

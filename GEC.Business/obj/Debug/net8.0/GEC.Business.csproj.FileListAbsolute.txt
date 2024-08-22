@@ -15,3 +15,4 @@ C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\G
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Busi.77CB9957.Up2Date
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\bin\Debug\net8.0\GEC.Business.runtimeconfig.json
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.genruntimeconfig.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Business\obj\Debug\net8.0\GEC.Business.sourcelink.json

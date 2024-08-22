@@ -18,11 +18,10 @@ namespace GEC.Business.Services
             _productRepo = productRepo;
         }
 
-        public async Task<ProductDto> GetAllAsync()
+        public async Task<List<ProductDto>> GetAllAsync()
         {
             var products = await _productRepo.GetAllAsync();
-            var productsDto = products.Adapt<ProductDto>();
-            return productsDto;
+            return products.Adapt<List<ProductDto>>();
         }
     }
 }

@@ -17,3 +17,4 @@ C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Runtime\bin\Debug\net8.0\GE
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Runtime\obj\Debug\net8.0\GEC.Runtime.csproj.AssemblyReference.cache
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Runtime\obj\Debug\net8.0\GEC.Runt.9492B464.Up2Date
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Runtime\obj\Debug\net8.0\GEC.Runtime.genruntimeconfig.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Runtime\obj\Debug\net8.0\GEC.Runtime.sourcelink.json

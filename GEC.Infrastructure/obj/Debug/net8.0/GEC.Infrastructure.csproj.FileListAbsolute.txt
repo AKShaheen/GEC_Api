@@ -12,3 +12,4 @@ C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\ne
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.csproj.AssemblyReference.cache
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\bin\Debug\net8.0\GEC.Infrastructure.runtimeconfig.json
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.genruntimeconfig.cache
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Infrastructure\obj\Debug\net8.0\GEC.Infrastructure.sourcelink.json

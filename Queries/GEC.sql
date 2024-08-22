@@ -16,3 +16,4 @@ INSERT INTO [GEC].dbo.Products (ProductId, Name, Description, Price, Stock, Crea
 VALUES (NEWID(), 'Tshirt5', 'Tshirts', 20.5, 5, GETDATE(), GETDATE(), 1);
 
 DELETE FROM [GEC].dbo.Users;
+DELETE FROM [GEC].dbo.Products;
