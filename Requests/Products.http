@@ -1,0 +1,5 @@
+@host = http://localhost:5026
+@Token = bearer 
+GET {{host}}/api/products
+Authorization: {{Token}}
+Content-Type: application/json

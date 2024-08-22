@@ -4,10 +4,10 @@ POST {{host}}/api/Account/Register
 Content-Type: application/json
 
 {
-    "name": "Shaheen",
+    "name": "Khalil",
     "phone": "01000",
-    "email": "shaheen@example.com",
+    "email": "khalil@example.com",
     "address": "string",
-    "password": "Shaheen123!"   
+    "password": "Khalil123!"   
 }
 

@@ -15,22 +15,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GEC.Presentation.Api.Controllers
 {
-    [Route("api/Account")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController(IValidator<RegisterRequest> _registerValidator, 
+                                    IValidator<LoginRequest> _loginValidator,
+                                    IUserService _userService) : BaseApiController
     { 
-        private readonly IValidator<RegisterRequest> _registerValidator;
-        private readonly IValidator<LoginRequest> _loginValidator;
-        private readonly IUserService _userService;
+        // private readonly IValidator<RegisterRequest> _registerValidator;
+        // private readonly IValidator<LoginRequest> _loginValidator;
+        // private readonly IUserService _userService;
 
-        public AccountController(IValidator<RegisterRequest> registerValidator, 
-                                IValidator<LoginRequest> loginValidator,
-                                IUserService userService)
-        {
-            _registerValidator = registerValidator;
-            _loginValidator = loginValidator;
-            _userService = userService;
-        }
+        // public AccountController(IValidator<RegisterRequest> registerValidator, 
+        //                         IValidator<LoginRequest> loginValidator,
+        //                         IUserService userService)
+        // {
+        //     _registerValidator = registerValidator;
+        //     _loginValidator = loginValidator;
+        //     _userService = userService;
+        // }
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request){

@@ -37,7 +37,7 @@ namespace GEC.Business.Services.Account
             user.PasswordSalt = passwordHash.PasswordSalt;
             user.CreatedOn = DateTime.Now;
             user.UpdatedOn = DateTime.Now;
-            user.IsAdmin = false;
+            user.IsAdmin = true;
             user.IsDeleted = false;
             
             var userModel = await _userRepository.CreateAsync(user);

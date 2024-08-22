@@ -21,15 +21,15 @@ namespace GEC.Business.Services.Authentication
         {
             _configuration = configuration;
         }
-        public static string GenerateSecureKey(int length = 64)
-        {
-            byte[] keyBytes = new byte[length];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(keyBytes);
-            }
-            return Convert.ToBase64String(keyBytes);
-        }
+        // public static string GenerateSecureKey(int length = 64)
+        // {
+        //     byte[] keyBytes = new byte[length];
+        //     using (var rng = RandomNumberGenerator.Create())
+        //     {
+        //         rng.GetBytes(keyBytes);
+        //     }
+        //     return Convert.ToBase64String(keyBytes);
+        // }
         public string GenerateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
@@ -39,7 +39,7 @@ namespace GEC.Business.Services.Authentication
                 new(ClaimTypes.Role, user.IsAdmin ? "Admin": "Customer"),
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GenerateSecureKey()));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSettings:Secret").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
                 claims: claims,
@@ -47,7 +47,7 @@ namespace GEC.Business.Services.Authentication
                 signingCredentials: creds 
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
+            return $"bearer {jwt}";
         }
     }
 }

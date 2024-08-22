@@ -145,3 +145,7 @@ C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Mapster.dll
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Mapster.Core.dll
 C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\obj\Debug\net8.0\GEC.Presentation.Api.sourcelink.json
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Scrutor.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\shaheen\Documents\dotnet\LDC\Trial3\GEC\GEC.Presentation.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
