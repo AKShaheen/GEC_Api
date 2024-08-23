@@ -11,5 +11,6 @@ namespace GEC.Business.Interfaces
         Task<List<ProductDto>> GetAllAsync();
         Task<ProductDto> GetByNameAsync(string name);
         Task<bool> AddNewProductAsync(ProductDto product);
+        Task<ProductDto> UpdateProductAsync(ProductDto product);
     }
 }

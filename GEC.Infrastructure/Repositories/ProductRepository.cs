@@ -47,17 +47,17 @@ namespace GEC.Infrastructure.Repositories
             return await _context.Products.FirstOrDefaultAsync(p => p.Name == Name);
         }
 
-        public async Task<Product?> UpdateAsync(Guid id, Product productModel)
+        public async Task<Product?> UpdateAsync(Product productModel)
         {
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
 
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Name == productModel.Name);
             if(existingProduct == null) return null;
             
             existingProduct.Name = productModel.Name;
             existingProduct.Description = productModel.Description;
             existingProduct.Price = productModel.Price;
             existingProduct.Stock = productModel.Stock;
-            existingProduct.Status = productModel.Status;
+            existingProduct.Status = true;
             existingProduct.UpdatedOn = DateTime.Now;
 
             await _context.SaveChangesAsync();

@@ -37,5 +37,12 @@ namespace GEC.Presentation.Api.Controllers
             var responseStatus = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
             return  responseStatus? Ok("Added"): BadRequest("Check Your Inputs");
         }
+        [HttpPost("Update"), Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateProduct(ProductsViewModel product)
+        {
+            var response = await _productService.UpdateProductAsync(product.Adapt<ProductDto>());
+            if (response == null) return NotFound("The Target Product Is Not Found");
+            return Ok(response.Adapt<ProductsViewModel>());
+        }
     }
 }

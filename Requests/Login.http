@@ -4,6 +4,6 @@ POST {{host}}/api/Account/login
 Content-Type: application/json
 
 {
-    "email": "shaheen@example.com",
-    "password": "Shaheen123!"   
+    "email": "Admin@gmail.com",
+    "password": "AdminAdmin1!"   
 }
