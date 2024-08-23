@@ -18,11 +18,11 @@ namespace GEC.Infrastructure.Repositories
             _context = dBContext;
         }
 
-        public async Task<Product> CreateAsync(Product productModel)
+        public async Task<bool> CreateAsync(Product productModel)
         {
             await _context.Products.AddAsync(productModel);
             await _context.SaveChangesAsync();
-            return productModel;
+            return true;
         }
 
         public async Task<Product?> DeleteAsync(Guid id)
@@ -42,6 +42,9 @@ namespace GEC.Infrastructure.Repositories
         public async Task<Product?> GetByIdAsync(Guid id)
         {
             return await _context.Products.FindAsync(id);
+        }
+        public async Task<Product?> GetByNameAsync(string Name){
+            return await _context.Products.FirstOrDefaultAsync(p => p.Name == Name);
         }
 
         public async Task<Product?> UpdateAsync(Guid id, Product productModel)

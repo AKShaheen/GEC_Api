@@ -9,5 +9,7 @@ namespace GEC.Business.Interfaces
     public interface IProductService
     {
         Task<List<ProductDto>> GetAllAsync();
+        Task<ProductDto> GetByNameAsync(string name);
+        Task<bool> AddNewProductAsync(ProductDto product);
     }
 }

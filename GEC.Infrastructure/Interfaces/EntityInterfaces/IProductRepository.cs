@@ -10,7 +10,8 @@ namespace GEC.Infrastructure.Interfaces.EntityInterfaces
     {
         Task<List<Product>> GetAllAsync();
         Task<Product?> GetByIdAsync(Guid id);
-        Task<Product> CreateAsync(Product productModel);
+        Task<Product?> GetByNameAsync(string Name);
+        Task<bool> CreateAsync(Product productModel);
         Task<Product?> UpdateAsync(Guid id, Product productModel);
         Task<Product?> DeleteAsync(Guid id);
     }

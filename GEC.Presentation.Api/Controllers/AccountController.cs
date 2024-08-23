@@ -19,19 +19,7 @@ namespace GEC.Presentation.Api.Controllers
                                     IValidator<LoginRequest> _loginValidator,
                                     IUserService _userService) : BaseApiController
     { 
-        // private readonly IValidator<RegisterRequest> _registerValidator;
-        // private readonly IValidator<LoginRequest> _loginValidator;
-        // private readonly IUserService _userService;
-
-        // public AccountController(IValidator<RegisterRequest> registerValidator, 
-        //                         IValidator<LoginRequest> loginValidator,
-        //                         IUserService userService)
-        // {
-        //     _registerValidator = registerValidator;
-        //     _loginValidator = loginValidator;
-        //     _userService = userService;
-        // }
-
+        
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request){
             var result = await _registerValidator.ValidateAsync(request);

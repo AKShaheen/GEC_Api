@@ -14,14 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace GEC.Presentation.Api.Controllers
 {
     [Authorize]
-    public class ProductController : BaseApiController
+    public class ProductController(IProductService _productService) : BaseApiController
     {
-        private readonly IProductService _productService;
-
-        public ProductController(IProductService productService)
-        {
-            _productService = productService;
-        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
@@ -31,11 +25,17 @@ namespace GEC.Presentation.Api.Controllers
             return Ok(products.Adapt<List<ProductsViewModel>>());
         }
 
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetByName([FromRoute] string name){
+            var product = await _productService.GetByNameAsync(name);
+            return product == null ? NotFound(): Ok(product.Adapt<ProductsViewModel>());
+        }
+
         [HttpPost("Add"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewProduct(ProductsViewModel product)
         {
-            //if( !User.IsClientAdmin() ) return Ok("Forbid");
-            return  Ok("Added");
+            var responseStatus = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
+            return  responseStatus? Ok("Added"): BadRequest("Check Your Inputs");
         }
     }
 }
