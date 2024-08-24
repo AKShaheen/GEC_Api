@@ -9,34 +9,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GEC.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository(ApplicationDBContext _context) : IProductRepository
     {
-        private readonly ApplicationDBContext _context;
-
-        public ProductRepository(ApplicationDBContext dBContext)
-        {
-            _context = dBContext;
-        }
-
+        
         public async Task<bool> CreateAsync(Product productModel)
         {
+            if (await _context.Products.AnyAsync(p => p.Name == productModel.Name))
+                return false;
+            productModel.Status = true;
             await _context.Products.AddAsync(productModel);
             await _context.SaveChangesAsync();
             return true;
         }
-
-        public async Task<Product?> DeleteAsync(Guid id)
-        {
-            var productModel = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
-            if(productModel == null) return null;
-            _context.Products.Remove(productModel);
-            await _context.SaveChangesAsync();
-            return productModel;
-        }
-
+        
         public async Task<List<Product>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                                .Where(p => p.Status == true)
+                                .ToListAsync();
         }
 
         public async Task<Product?> GetByIdAsync(Guid id)
@@ -62,6 +52,13 @@ namespace GEC.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
             return existingProduct;
+        }
+        public async Task<bool> DeleteAsync(string name){
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Name == name);
+            if(existingProduct == null) return false;
+            existingProduct.Status = false; 
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

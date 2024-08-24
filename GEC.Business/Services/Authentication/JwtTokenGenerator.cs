@@ -47,7 +47,7 @@ namespace GEC.Business.Services.Authentication
                 signingCredentials: creds 
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return $"bearer {jwt}";
+            return jwt;
         }
     }
 }
