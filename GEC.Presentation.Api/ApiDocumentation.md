@@ -18,13 +18,24 @@ Handles user registration and login.
 - **Request Body**:
   ```json
   {
-    "Email": "string (required)",
-    "Password": "string (required)",
-    "ConfirmPassword": "string (required)",
-    "FirstName": "string (required)",
-    "LastName": "string (required)"
+    "Name": "string (required, max length: 50)",
+    "Address": "string (required)",
+    "Phone": "string (required, max length: 14)",
+    "Email": "string (required, valid email format)",
+    "Password": "string (required, must meet password rules)"
   }
   ```
+- **Constraints**: 
+  - `Name`: Maximum length of 50 characters, must not be empty.
+  - `Address`: Must not be empty.
+  - `Phone`: Maximum length of 14 characters, must not be empty.
+  - `Email`: Must be a valid email format, must not be empty.
+  - `Password`: Must meet specific password rules, must not be empty.
+    - Has at least one lower character
+    - Has at least one Upper character
+    - Has at least one Number character
+    - Has at least one Special character
+    - Minimum length of 10 characters
 - **Authentication**: Not required.
 - **Response**:
   - `200 OK`: The registered user's details as `UserViewModel`.
@@ -35,10 +46,13 @@ Handles user registration and login.
 - **Request Body**:
   ```json
   {
-    "Email": "string (required)",
+    "Email": "string (required, valid email format)",
     "Password": "string (required)"
   }
   ```
+- **Constraints**:
+  - `Email`: Must be a valid email format, must not be empty.
+  - `Password`: Must not be empty.
 - **Authentication**: Not required.
 - **Response**:
   - `200 OK`: The authenticated user's details as `UserViewModel` along with a **JWT token**.
@@ -68,12 +82,19 @@ Handles product-related operations.
 - **Request Body**:
   ```json
   {
-    "Name": "string (required)",
-    "Description": "string (required)",
-    "Price": "decimal (required)",
-    "StockQuantity": "int (required)"
+    "Name": "string (required, max length: 50)",
+    "Description": "string (optional, max length: 150)",
+    "Price": "decimal (required, must be between 0.01 and 99999999.99)",
+    "Stock": "int (required)",
+    "Status": "string (required)"
   }
   ```
+- **Constraints**:
+  - Name: Maximum length of 50 characters, must not be empty.
+  - Description: Maximum length of 150 characters, optional.
+  - Price: Must be a decimal value between 0.01 and 99999999.99, must not be empty.
+  - Stock: Must not be empty.
+  - Status: Must not be empty.
 - **Authentication**: **Required**. **Admin role needed**.
 - **Response**:
   - `200 OK`: Product added successfully.
@@ -84,13 +105,19 @@ Handles product-related operations.
 - **Request Body**:
   ```json
   {
-    "Name": "string (required)",
-    "NewName": "string (optional)",
-    "Description": "string (optional)",
+    "Name": "string (optional, max length: 50)",
+    "Description": "string (optional, max length: 150)",
     "Price": "decimal (optional)",
-    "StockQuantity": "int (optional)"
+    "Stock": "int (optional)",
+    "Status": "string (optional)"
   }
   ```
+- **Constraints**:
+  -  Name: Maximum length of 50 characters, optional.
+  -  Description: Maximum length of 150 characters, optional.
+  -  Price: Optional.
+  -  Stock: Optional.
+  -  Status: Optional.
 - **Authentication**: **Required**. **Admin role needed**.
 - **Response**:
   - `200 OK`: The updated product details as `AdminProductVM`.
