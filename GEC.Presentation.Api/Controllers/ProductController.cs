@@ -32,10 +32,10 @@ namespace GEC.Presentation.Api.Controllers
         }
 
         [HttpPost("Add"), Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddNewProduct(AdminProductVM product)
+        public async Task<IActionResult> AddNewProduct(AddProductRequest product)
         {
             var responseStatus = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
-            return  responseStatus? Ok("Added") : BadRequest("Check Your Inputs");
+            return  responseStatus ? Ok("Added") : BadRequest("Check Your Inputs");
         }
         [HttpPut("Update"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct(UpdateRequest product)

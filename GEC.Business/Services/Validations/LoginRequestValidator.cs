@@ -11,8 +11,12 @@ namespace GEC.Business.Services.Validations
     {
         public LoginRequestValidator()
         {    
-            RuleFor(email => email.Email).NotEmpty().EmailAddress();
-            RuleFor(password => password.Password).NotEmpty();
+            RuleFor(email => email.Email)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .EmailAddress();
+            RuleFor(password => password.Password)
+                .NotEmpty();
         }
     }
 }

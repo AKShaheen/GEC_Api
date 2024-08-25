@@ -22,5 +22,12 @@ namespace GEC.Business.Extensions
                 .Matches("[^a-zA-Z0-9]")
                 .WithMessage("You need to have at least one Special Character");
         }
+        public static void InputRule<T>(this IRuleBuilder<T, string> ruleBuilder, int maximumLength = 50)
+        {
+            ruleBuilder
+                .MaximumLength(maximumLength)
+                .WithMessage($"Make Your inputs less than {maximumLength} characters")
+                .NotEmpty();
+        }
     }
 }

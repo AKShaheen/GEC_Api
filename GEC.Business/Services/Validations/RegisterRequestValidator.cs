@@ -12,10 +12,25 @@ namespace GEC.Business.Services.Validations
     {
         public RegisterRequestValidator()
         {
-            RuleFor(Name => Name.Name).Cascade(CascadeMode.Stop).NotEmpty();
-            RuleFor(Phone => Phone.Phone).Cascade(CascadeMode.Stop).NotEmpty();
-            RuleFor(Email => Email.Email).Cascade(CascadeMode.Stop).NotEmpty().EmailAddress();
-            RuleFor(x => x.Password).Cascade(CascadeMode.Stop).NotEmpty().PasswordRule();
+            RuleFor(r => r.Name)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .MaximumLength(50);
+            RuleFor(r => r.Address)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty();
+            RuleFor(r => r.Phone)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .MaximumLength(14);
+            RuleFor(r => r.Email)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .EmailAddress();
+            RuleFor(r => r.Password)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .PasswordRule();
         }
     }
 }
