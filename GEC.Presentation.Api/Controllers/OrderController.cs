@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GEC.Business.Contracts.Dtos;
+using GEC.Business.Contracts.Exceptions;
 using GEC.Business.Contracts.Requests;
 using GEC.Business.Interfaces;
 using GEC.Presentation.Api.ViewModels;
@@ -30,9 +31,24 @@ namespace GEC.Presentation.Api.Controllers
         // }
         [HttpPost]
         public async Task<IActionResult> AddNewOrder(AddNewOrderRequest request){
-            var order = await _orderService.AddOrderAsync(request.Adapt<OrderDto>());
-            var orderVM = order.Adapt<OrdersViewModel>();
-            return orderVM == null ? NotFound("User Or Product Are not found") : Ok(orderVM);
+            try{
+                var order = await _orderService.AddOrderAsync(request.Adapt<OrderDto>());
+                var orderVM = order.Adapt<OrdersViewModel>();
+                return orderVM == null ? NotFound("User Or Product Are not found") : Ok(orderVM);
+            }catch(UserNotFoundException ex){
+                return NotFound(ex.Message);
+            }catch(ProductNotFoundException ex){
+                return NotFound(ex.Message);
+            }catch(InvalidUserOperationException ex){
+                return BadRequest(ex.Message);
+            }catch(Exception){
+                return BadRequest();
+            }
+        }
+        [HttpDelete("{OrderId}")]
+        public async Task<IActionResult> DeleteOrder([FromRoute] Guid OrderId){
+            var status = await _orderService.DeleteOrder(OrderId);
+            return status ? Ok("Deleted") : NotFound("Cannot Found the Specified Order");
         }
     }
 }
