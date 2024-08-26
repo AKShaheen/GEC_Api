@@ -45,11 +45,11 @@ namespace GEC.Business.Services.Account
         }
         public async Task<UserDto?> LoginAsync(string email, string password){
             var userModel = await _userRepository.FindByEmailAsync(email);
-            if(userModel == null) return null;
+            if(userModel == null) throw new KeyNotFoundException("Could not find user");
             if(!PasswordHasher.VerifyPassword(userModel.PasswordHash, userModel.PasswordSalt ,password))
-                return null;
+                throw new InvalidOperationException("Password Not Valid");
             var userDto = userModel.Adapt<UserDto>();
-            userDto.Token = _jwtTokenGenerator.GenerateToken(userModel);
+            //userDto.Token = _jwtTokenGenerator.GenerateToken(userModel);
             return userDto;
         }
     }

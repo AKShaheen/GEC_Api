@@ -36,11 +36,15 @@ namespace GEC.Presentation.Api.Controllers
             var result = await _loginValidator.ValidateAsync(request);
             if(!result.IsValid)
                 return StatusCode(StatusCodes.Status400BadRequest, result.Errors.Select(x => x.ErrorMessage));
+            try {
+                var userDto = await _userService.LoginAsync(request.Email, request.Password);
+                return Ok(userDto.Adapt<UserViewModel>());
+            }catch (KeyNotFoundException){
+                return BadRequest("Email Not Found");
+            }catch (InvalidOperationException){
+                return BadRequest("Wrong Email or Password");
+            }
             
-            var userDto = await _userService.LoginAsync(request.Email, request.Password);
-            Console.WriteLine(userDto);
-            if (userDto == null) return BadRequest("Wrong username or password");
-            return Ok(userDto.Adapt<UserViewModel>());
         }
     }
 }

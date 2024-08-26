@@ -9,6 +9,7 @@ namespace GEC.Infrastructure.Interfaces.EntityInterfaces
     public interface IOrderRepository
     {
         Task<List<Order>> GetAllAsync();
-        Task<Order?> GetByIdAsync(string id);
+        Task<List<Order>?> GetByIdAsync(Guid id);
+        Task<Order> AddAsync(Order order);
     }
 }

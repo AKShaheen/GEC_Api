@@ -9,6 +9,7 @@ namespace GEC.Business.Interfaces
     public interface IOrderService
     {
         Task<List<OrderDto>> GetAllOrdersAsync();
-        Task<List<OrderDto>> GetAllUserOrdersAsync(string id);
+        Task<List<OrderDto>?> GetAllUserOrdersAsync(string id);
+        Task<OrderDto?> AddOrderAsync(OrderDto order);
     }
 }

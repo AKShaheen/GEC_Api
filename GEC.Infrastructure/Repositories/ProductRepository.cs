@@ -60,5 +60,9 @@ namespace GEC.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<decimal> GetPriceByIdAsync(Guid id){
+            var product = await _context.Products.FindAsync(id);
+            return product == null ? 0 : product.Price;
+        }
     }
 }

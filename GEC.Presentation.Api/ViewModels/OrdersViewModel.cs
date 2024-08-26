@@ -13,5 +13,6 @@ namespace GEC.Presentation.Api.ViewModels
         public decimal TotalAmount { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public Guid UserId { get; set; }
+        public ICollection<OrderItemsViewModel> OrderItems { get; set; } = [];
     }
 }

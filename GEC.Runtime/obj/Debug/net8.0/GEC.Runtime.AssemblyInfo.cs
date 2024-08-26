@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GEC.Runtime")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e73e5933aa2e18eb35bf58eb74546bd48dc9320e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+884bf7c54646eaf426e73fb3b5e9469919a6c14e")]
 [assembly: System.Reflection.AssemblyProductAttribute("GEC.Runtime")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GEC.Runtime")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

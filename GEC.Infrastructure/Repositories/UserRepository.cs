@@ -21,5 +21,11 @@ namespace GEC.Infrastructure.Repositories
         public async Task<User?> FindByEmailAsync(string email){
             return await _context.Users.SingleOrDefaultAsync(e => e.Email == email);
         }
+        public async Task<bool> IsExist(Guid id){
+            return await _context.Users.AnyAsync(e => e.UserId == id);
+        }
+        public async Task<User?> GetUserByNameAsync(string name){
+            return await _context.Users.FirstOrDefaultAsync(e => e.Name == name);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace GEC.Business.Contracts.Dtos
         public decimal TotalAmount { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public Guid UserId { get; set; }
+        public ICollection<OrderItemDto> OrderItems { get; set; } = [];
     }
 }

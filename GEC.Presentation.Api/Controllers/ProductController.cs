@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GEC.Presentation.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductController(IProductService _productService) : BaseApiController
     {
 
@@ -31,19 +31,19 @@ namespace GEC.Presentation.Api.Controllers
             return product == null ? NotFound() : Ok(product.Adapt<ProductsViewModel>());
         }
 
-        [HttpPost("Add"), Authorize(Roles = "Admin")]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddNewProduct(AddProductRequest product)
         {
             var responseStatus = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
             return  responseStatus ? Ok("Added") : BadRequest("Check Your Inputs");
         }
-        [HttpPut("Update"), Authorize(Roles = "Admin")]
+        [HttpPut("Update")/*, Authorize(Roles = "Admin")*/]
         public async Task<IActionResult> UpdateProduct(UpdateRequest product)
         {
             var response = await _productService.UpdateProductAsync(product.Adapt<ProductDto>());
             return response == null ? NotFound("The Target Product Is Not Found") : Ok(response.Adapt<AdminProductVM>());
         }
-        [HttpDelete("{name}"), Authorize(Roles = "Admin")]
+        [HttpDelete("{name}")/*, Authorize(Roles = "Admin")*/]
         public async Task<IActionResult> DeleteProduct([FromRoute] string name)
         {
             var response = await _productService.DeleteProductAsync(name);

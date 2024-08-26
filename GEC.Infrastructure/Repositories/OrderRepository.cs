@@ -15,8 +15,18 @@ namespace GEC.Infrastructure.Repositories
         {
             return await _context.Orders.Include(c => c.OrderItems).ToListAsync();
         }
-        public async Task<Order?> GetByIdAsync(string id){
-            return await _context.Orders.Include(c => c.OrderItems).FirstOrDefaultAsync(p => p.UserId.ToString() == id);
+        public async Task<List<Order>?> GetByIdAsync(Guid id){
+            return await _context.Orders
+                    .Include(c => c.OrderItems)
+                    .Where(s => s.UserId == id)
+                    .ToListAsync();
+        }
+        public async Task<Order> AddAsync(Order order){
+            order.IsDeleted = false;
+            order.OrderDate = DateTime.Now;
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            return order;
         }
     }
 }
