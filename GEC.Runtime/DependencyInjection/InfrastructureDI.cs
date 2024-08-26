@@ -14,6 +14,7 @@ namespace GEC.Runtime.DependencyInjection
             
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }

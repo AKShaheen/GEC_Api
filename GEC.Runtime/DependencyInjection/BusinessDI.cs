@@ -17,6 +17,7 @@ namespace GEC.Runtime.DependencyInjection
             
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;

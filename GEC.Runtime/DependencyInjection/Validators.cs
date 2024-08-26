@@ -15,6 +15,8 @@ namespace GEC.Runtime.DependencyInjection
             
             services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();    
             services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();  
+            services.AddScoped<IValidator<AddProductRequest>, AddProductValidator>();  
+            services.AddScoped<IValidator<UpdateRequest>, UpdateProductValidator>();  
 
             return services;
         }

@@ -33,6 +33,7 @@ namespace GEC.Business.Services.Authentication
         public string GenerateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
+                new(ClaimTypes.Sid, user.UserId.ToString()),
                 new(ClaimTypes.Name, user.Name),
                 new(ClaimTypes.Email, user.Email),
                 new(ClaimTypes.MobilePhone, user.Phone),

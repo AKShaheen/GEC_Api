@@ -10,15 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GEC.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository (ApplicationDBContext _context) : IUserRepository
     {
-        private readonly ApplicationDBContext _context;
-
-        public UserRepository(ApplicationDBContext context)
-        {
-            _context = context;
-        }
-
         public async Task<User> CreateAsync(User userModel)
         {
             await _context.AddAsync(userModel);
