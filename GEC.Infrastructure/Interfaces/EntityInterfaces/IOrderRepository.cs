@@ -11,5 +11,6 @@ namespace GEC.Infrastructure.Interfaces.EntityInterfaces
         Task<List<Order>> GetAllAsync();
         Task<List<Order>?> GetByIdAsync(Guid id);
         Task<Order> AddAsync(Order order);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

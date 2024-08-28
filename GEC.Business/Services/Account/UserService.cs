@@ -44,8 +44,7 @@ namespace GEC.Business.Services.Account
             return userModel.Adapt<UserDto>();
         }
         public async Task<UserDto?> LoginAsync(string email, string password){
-            var userModel = await _userRepository.FindByEmailAsync(email);
-            if(userModel == null) throw new KeyNotFoundException("Could not find user");
+            var userModel = await _userRepository.FindByEmailAsync(email) ?? throw new KeyNotFoundException("Could not find user");
             if(!PasswordHasher.VerifyPassword(userModel.PasswordHash, userModel.PasswordSalt ,password))
                 throw new InvalidOperationException("Password Not Valid");
             var userDto = userModel.Adapt<UserDto>();

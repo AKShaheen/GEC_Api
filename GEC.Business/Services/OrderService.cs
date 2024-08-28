@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GEC.Business.Contracts.Dtos;
+using GEC.Business.Contracts.Exceptions;
 using GEC.Business.Interfaces;
 using GEC.Infrastructure.Interfaces.EntityInterfaces;
 using GEC.Infrastructure.Models;
@@ -15,13 +16,17 @@ namespace GEC.Business.Services
     {
         public async Task<OrderDto?> AddOrderAsync(OrderDto order)
         {
-            if (!await _userRepo.IsExist(order.UserId)) return null;
+            if (!await _userRepo.IsExist(order.UserId)) throw new UserNotFoundException("User Not Found");
             decimal total = 0;
             foreach (var item in order.OrderItems)
             {
-                var productPrice = await _productRepo.GetPriceByIdAsync(item.ProductId);
-                item.Cost = item.Quantity * productPrice ;
-                total += item.Cost;
+                var productModel = await _productRepo.GetByIdAsync(item.ProductId) ?? throw new ProductNotFoundException("Product not found");
+                if (productModel.Stock >= item.Quantity){
+                    item.Cost = item.Quantity * productModel.Price ;
+                    total += item.Cost;
+                }else{
+                    throw new InvalidUserOperationException($"Product:{productModel.ProductId}) {productModel.Name} is Out Of Stock");
+                }
             }
             order.Amount = total;
             order.Tax = 0.14M*total;
@@ -41,6 +46,10 @@ namespace GEC.Business.Services
             if(userModel == null) return null;
             var userOrders = await _orderRepo.GetByIdAsync(userModel.UserId);
             return userOrders.Adapt<List<OrderDto>?>();
+        }
+        public async Task<bool> DeleteOrder(Guid OrderId){
+            var status = await _orderRepo.DeleteAsync(OrderId);
+            return status; 
         }
     }
 }

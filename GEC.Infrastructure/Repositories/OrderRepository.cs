@@ -28,5 +28,14 @@ namespace GEC.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return order;
         }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var existingOrder = await _context.Orders.FirstOrDefaultAsync(p => p.OrderId == id);
+            if(existingOrder == null) return false;
+            existingOrder.IsDeleted = true; 
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

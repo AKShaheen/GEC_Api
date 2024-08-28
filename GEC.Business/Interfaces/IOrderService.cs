@@ -11,5 +11,6 @@ namespace GEC.Business.Interfaces
         Task<List<OrderDto>> GetAllOrdersAsync();
         Task<List<OrderDto>?> GetAllUserOrdersAsync(string id);
         Task<OrderDto?> AddOrderAsync(OrderDto order);
+        Task<bool> DeleteOrder(Guid OrderId);
     }
 }
