@@ -63,7 +63,7 @@ Handles user registration and login.
   - `200 OK`: The registered user's details as `UserViewModel`
       ```json
     {
-      "UserId": Guid,
+      "UserId": "Guid",
       "Name": "string",
       "Address": "string",
       "Phone": "string",
@@ -89,7 +89,7 @@ Handles user registration and login.
   - `200 OK`: The registered user's details as `UserViewModel`
       ```json
     {
-      "UserId": Guid,
+      "UserId": "Guid",
       "Name": "string",
       "Address": "string",
       "Phone": "string",
@@ -98,7 +98,7 @@ Handles user registration and login.
   - `200 OK`: The registered user's details as `UserViewModel` **Authentication Mode Enabled**
       ```json
     {
-      "UserId": Guid,
+      "UserId": "Guid",
       "Name": "string",
       "Address": "string",
       "Phone": "string",
@@ -122,9 +122,9 @@ Handles product-related operations.
         "productId": "Guid",
         "name": "string",
         "description": "string",
-        "price": decimal,
-        "stock": int,
-        "status": boolean
+        "price": "decimal",
+        "stock": "int",
+        "status": "boolean"
       },
     ]
     ```
@@ -143,9 +143,9 @@ Handles product-related operations.
       "productId": "Guid",
       "name": "string",
       "description": "string",
-      "price": decimal,
-      "stock": int,
-      "status": boolean
+      "price": "decimal",
+      "stock": "int",
+      "status": "boolean"
     }
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: Product not found.
@@ -201,9 +201,9 @@ Handles product-related operations.
       "productId": "Guid",
       "name": "string",
       "description": "string",
-      "price": decimal,
-      "stock": int,
-      "status": boolean
+      "price": "decimal",
+      "stock": "int",
+      "status": "boolean"
     }
     ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
@@ -224,7 +224,7 @@ Handles product-related operations.
 ## OrderController
 Handles Order-related operations.
 
-### `GET /Product/GetAllProducts`
+### `GET /Order/GetAllOrders`
 - **Description**: Retrieves all available products.
 - **Authentication**: Required.
 - **Response**:
@@ -232,17 +232,17 @@ Handles Order-related operations.
     ```json
     [
       {
-        "orderId": Guid,
-        "amount": decimal,
-        "tax": decimal,
-        "totalAmount": decimal,
-        "orderDate": DateTime,
-        "userId": Guid,
+        "orderId": "Guid",
+        "amount": "decimal",
+        "tax": "decimal",
+        "totalAmount": "decimal",
+        "orderDate": "DateTime",
+        "userId": "Guid",
         "orderItems": [
           {
-            "productId": Guid,
-            "quantity": int,
-            "cost": decimal
+            "productId": "Guid",
+            "quantity": "int",
+            "cost": "decimal"
           }
         ]
       }
@@ -259,7 +259,7 @@ Handles Order-related operations.
       "orderItems": [
         {
           "productId": "Guid (required)",
-          "quantity": int (required)
+          "quantity": "int (required)"
         }
       ]
     }
