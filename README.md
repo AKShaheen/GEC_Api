@@ -1,12 +1,11 @@
-# Generic Ecommerce API
-# Documentation
+# Generic Ecommerce API /n Documentation
 
 ## Authentication
-### Your Need First to Enable Authentication Mode By Doing The Following
+### You need First to Enable Authentication Mode By Doing The Following
 #### Configuring Preprocessor Symbols in `Directory.Build.props` File
 
 ### Purpose
-Defining preprocessor symbols in a `Directory.Build.props` file allows you to conditionally compile sections of your code across the entire Solution. This is useful for enabling or disabling features based on the configuration.
+Defining preprocessor symbols in a `Directory.Build.props` file allows you to compile sections of your code conditionally across the entire Solution. This is useful for enabling or disabling features based on the configuration.
 
 ### Configuration Steps
 
@@ -25,12 +24,12 @@ Here's the basic structure to add a symbol named `AuthMode`:
 </Project>
 ```
 - The API uses **JWT (JSON Web Token)** for authentication. 
-- Include the token in the `Authorization` header in the format: **`Bearer {token}`**.
+- Include the token in the `Authorization` header in the format: **` Bearer {token}`**.
 - The endpoints in the `ProductController` marked with `[Authorize]` require authentication.
 - Some actions are restricted to users with the **"Admin"** role.
 
 ## Password Security
-- **Passwords** are stored securely using **hashing and salting** techniques. This ensures that even if the database is compromised, the passwords remain protected.
+- **Passwords** are stored securely using **hashing and salting** techniques. This ensures that the passwords remain protected even if the database is compromised.
 
 ## AccountController
 Handles user registration and login.
@@ -52,7 +51,7 @@ Handles user registration and login.
   - `Address`: Must not be empty.
   - `Phone`: Maximum length of 14 characters, must not be empty.
   - `Email`: Must be a valid email format, must not be empty.
-  - `Password`: Must meet specific password rules, must not be empty.
+  - `Password`: Must meet specific password rules, and must not be empty.
     - Has at least one lower character
     - Has at least one Upper character
     - Has at least one Number character
@@ -132,7 +131,7 @@ Handles product-related operations.
   - `404 Not Found`: No products available.
 
 ### `GET /Product/GetProductsById/{id}`
-- **Description**: Retrieves a product by its Id.
+- **Description**: Retrieves a product by its ID.
 - **Parameters**:
   - `id` (Guid, required): The ID of the product.
 - **Authentication**: **Required**.
@@ -151,7 +150,7 @@ Handles product-related operations.
   - `404 Not Found`: Product not found.
 
 ### `POST /Product/AddProduct`
-- **Description**: Adds a new product. **Only accessible to users with the "Admin" role In `Authentication Mode`**.
+- **Description**: Add a new product. **Only accessible to users with the "Admin" role In `Authentication Mode`**.
 - **Request Body**:
   ```json
   {
@@ -165,7 +164,7 @@ Handles product-related operations.
 - **Constraints**:
   - Name: Maximum length of 50 characters, must not be empty.
   - Description: Maximum length of 150 characters, optional.
-  - Price: Must be a decimal value between 0.01 and 99999999.99, must not be empty.
+  - Price: Must be a decimal value between 0.01 and 99999999.99, and must not be empty.
   - Stock: Must not be empty.
   - Status: Must not be empty.
 - **Authentication**: Required. `Admin role needed`.
@@ -190,7 +189,7 @@ Handles product-related operations.
 - **Constraints**:
   -  Name: Maximum length of 50 characters, required.
   -  Description: Maximum length of 150 characters, optional.
-  -  Price: Must be a decimal value between 0.01 and 99999999.99, must not be empty.
+  -  Price: Must be a decimal value between 0.01 and 99999999.99, and must not be empty.
   -  Stock: required.
   -  Status: required.
 - **Authentication**: Required. `Admin role needed`.
@@ -251,7 +250,7 @@ Handles Order-related operations.
   - `404 Not Found`: No products available.
 
 ### `POST /Order/AddOrder`
-- **Description**: Adds a new product.
+- **Description**: Add a new product.
 - **Request Body**:
   ```json
     {
@@ -272,11 +271,11 @@ Handles Order-related operations.
 - **Response**:
   - `200 OK`: Product Added successfully.
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
-  - `404 Not Found` : Returned if the user or product is not found.
+  - `404 Not Found`: Returned if the user or product is not found.
   - `400 Bad Request`: Any errors.
 
   ### `DELETE /DeleteOrder/{id}`
-- **Description**: Deletes an Order by its id.
+- **Description**: Deletes an Order by its ID.
 - **Parameters**:
   - `id` (Guid, required): The ID of the Order to delete.
 - **Authentication**: Required.
