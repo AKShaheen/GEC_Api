@@ -39,8 +39,8 @@ namespace GEC.Business.Services
             return productUpdated.Adapt<ProductDto>();
         }
 
-        public async Task<bool> DeleteProductAsync(string name){
-            var status = await _productRepo.DeleteAsync(name);
+        public async Task<bool> DeleteProductAsync(Guid id){
+            var status = await _productRepo.DeleteAsync(id);
             return status;
         }
     }

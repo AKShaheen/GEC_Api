@@ -1,11 +1,13 @@
+
 using System.Text;
+using GEC.Business.Interfaces;
 using GEC.Runtime.Connections;
 using GEC.Runtime.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.Filters;
-
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -17,6 +19,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     
     builder.Services.AddEndpointsApiExplorer();
+    
+#if AuthMode
+// Authentication And Authorization Swagger Configuration
     builder.Services.AddSwaggerGen(options => {
         options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme {
             Description = "Standard Authorization Header Using the Bearer Scheme (\"bearer {token}\")",
@@ -26,8 +31,13 @@ var builder = WebApplication.CreateBuilder(args);
         });
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
-
+#else
+    builder.Services.AddSwaggerGen();
+#endif
     builder.Services.AddSqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+#if AuthMode
+// Authentication Service
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options => {
             options.TokenValidationParameters = new TokenValidationParameters{
@@ -38,13 +48,20 @@ var builder = WebApplication.CreateBuilder(args);
                 ValidateAudience = false
             };
         });
+#endif
 }
 
 var app = builder.Build();
 {
 
 }
-
+try 
+{
+    var seeder = app.Services.CreateScope().ServiceProvider.GetRequiredService<IDataSeeder>();
+    await seeder.SeedAdminDataAsync();
+}catch (Exception e){
+    Console.WriteLine($"An error occurred while seeding the database: {e.Message}");
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -54,9 +71,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
+#if AuthMode
+//Auth services app config
+    app.UseAuthentication();
+    app.UseAuthorization();
+#endif
 app.MapControllers();
 
 app.Run();

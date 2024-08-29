@@ -37,7 +37,7 @@ namespace GEC.Business.Services.Account
             user.PasswordSalt = passwordHash.PasswordSalt;
             user.CreatedOn = DateTime.Now;
             user.UpdatedOn = DateTime.Now;
-            user.IsAdmin = true;
+            user.IsAdmin = false;
             user.IsDeleted = false;
             
             var userModel = await _userRepository.CreateAsync(user);
@@ -48,7 +48,9 @@ namespace GEC.Business.Services.Account
             if(!PasswordHasher.VerifyPassword(userModel.PasswordHash, userModel.PasswordSalt ,password))
                 throw new InvalidOperationException("Password Not Valid");
             var userDto = userModel.Adapt<UserDto>();
-            //userDto.Token = _jwtTokenGenerator.GenerateToken(userModel);
+            #if AuthMode
+            userDto.Token = _jwtTokenGenerator.GenerateToken(userModel);
+            #endif
             return userDto;
         }
     }

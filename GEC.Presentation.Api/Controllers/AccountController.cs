@@ -31,7 +31,6 @@ namespace GEC.Presentation.Api.Controllers
         }
 
         [HttpPost("Login")]
-
         public async Task<IActionResult> Login(LoginRequest request){
             var result = await _loginValidator.ValidateAsync(request);
             if(!result.IsValid)

@@ -13,5 +13,8 @@ namespace GEC.Business.Contracts.Dtos
         public required string Phone { get; set;}
         public required string Email { get; set;}
         public required string Password { get; set; }
+        #if AuthMode
+        public string? Token { get; set; }
+        #endif
     }
 }

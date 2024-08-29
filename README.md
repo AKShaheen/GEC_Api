@@ -2,6 +2,28 @@
 # API Documentation
 
 ## Authentication
+### Your Need First to Enable Authentication Mode By Doing The Following
+#### Configuring Preprocessor Symbols in `Directory.Build.props` File
+
+### Purpose
+Defining preprocessor symbols in a `Directory.Build.props` file allows you to conditionally compile sections of your code across the entire Solution. This is useful for enabling or disabling features based on the configuration.
+
+### Configuration Steps
+
+#### 1. Open the Solution's `Directory.Build.props` File
+#### 2. Define Preprocessor Symbols
+Add the `<DefineConstants>` tag inside the `<PropertyGroup>` element to define your preprocessor symbols.
+
+Here's the basic structure to add a symbol named `AuthMode`:
+```xml
+  <Project>
+    <PropertyGroup>
+        <!-- You Can Choose One Of the Below Options -->
+        <DefineConstants>AuthMode</DefineConstants> <!-- Defining The Tag to Enable Authentication Modo -->
+        <DefineConstants></DefineConstants> <!-- No Adding a Tag to Disable Authentication Modo -->
+    </PropertyGroup>
+</Project>
+```
 - The API uses **JWT (JSON Web Token)** for authentication. 
 - Include the token in the `Authorization` header in the format: **`Bearer {token}`**.
 - The endpoints in the `ProductController` marked with `[Authorize]` require authentication.
@@ -13,7 +35,7 @@
 ## AccountController
 Handles user registration and login.
 
-### `POST /api/Account/Register`
+### `POST /Account/Register`
 - **Description**: Registers a new user.
 - **Request Body**:
   ```json
@@ -38,10 +60,19 @@ Handles user registration and login.
     - Minimum length of 10 characters
 - **Authentication**: Not required.
 - **Response**:
-  - `200 OK`: The registered user's details as `UserViewModel`.
+  - `200 OK`: The registered user's details as `UserViewModel`
+      ```json
+    {
+      "UserId": Guid,
+      "Name": "string",
+      "Address": "string",
+      "Phone": "string",
+      "Email": "string"
+    }
+    ```
   - `400 Bad Request`: Validation errors.
 
-### `POST /api/Account/Login`
+### `POST /Account/Login`
 - **Description**: Authenticates a user and returns a **JWT token**.
 - **Request Body**:
   ```json
@@ -55,30 +86,72 @@ Handles user registration and login.
   - `Password`: Must not be empty.
 - **Authentication**: Not required.
 - **Response**:
-  - `200 OK`: The authenticated user's details as `UserViewModel` along with a **JWT token**.
+  - `200 OK`: The registered user's details as `UserViewModel`
+      ```json
+    {
+      "UserId": Guid,
+      "Name": "string",
+      "Address": "string",
+      "Phone": "string",
+      "Email": "string"
+    }
+  - `200 OK`: The registered user's details as `UserViewModel` **Authentication Mode Enabled**
+      ```json
+    {
+      "UserId": Guid,
+      "Name": "string",
+      "Address": "string",
+      "Phone": "string",
+      "Email": "string"
+      "Token": "string"
+    }
   - `400 Bad Request`: Validation errors or wrong username/password.
 
 ## ProductController
 Handles product-related operations.
+**The Authentications Constraints Only Applied When Authentication Mode is Enabled**
 
-### `GET /api/Product`
+### `GET /Product/GetAllProducts`
 - **Description**: Retrieves all available products.
-- **Authentication**: **Required**.
+- **Authentication**: Required.
 - **Response**:
-  - `200 OK`: A list of products as `List<ProductsViewModel>`.
+  - `200 OK`: A list of products as `List<ProductsViewModel>`
+    ```json
+    [
+      {
+        "productId": "Guid",
+        "name": "string",
+        "description": "string",
+        "price": decimal,
+        "stock": int,
+        "status": boolean
+      },
+    ]
+    ```
+  - `401 Unauthorized`: Unauthorized *Authentication Mode*.
   - `404 Not Found`: No products available.
 
-### `GET /api/Product/{name}`
-- **Description**: Retrieves a product by its name.
+### `GET /Product/GetProductsById/{id}`
+- **Description**: Retrieves a product by its Id.
 - **Parameters**:
-  - `name` (string, required): The name of the product.
+  - `id` (Guid, required): The ID of the product.
 - **Authentication**: **Required**.
 - **Response**:
-  - `200 OK`: The product details as `ProductsViewModel`.
+  - `200 OK`: The product details as `ProductsViewModel`
+      ```json
+    {
+      "productId": "Guid",
+      "name": "string",
+      "description": "string",
+      "price": decimal,
+      "stock": int,
+      "status": boolean
+    }
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: Product not found.
 
-### `POST /api/Product/Add`
-- **Description**: Adds a new product. **Only accessible to users with the "Admin" role**.
+### `POST /Product/AddProduct`
+- **Description**: Adds a new product. **Only accessible to users with the "Admin" role In `Authentication Mode`**.
 - **Request Body**:
   ```json
   {
@@ -86,7 +159,7 @@ Handles product-related operations.
     "Description": "string (optional, max length: 150)",
     "Price": "decimal (required, must be between 0.01 and 99999999.99)",
     "Stock": "int (required)",
-    "Status": "string (required)"
+    "Status": "boolean (required)"
   }
   ```
 - **Constraints**:
@@ -95,39 +168,119 @@ Handles product-related operations.
   - Price: Must be a decimal value between 0.01 and 99999999.99, must not be empty.
   - Stock: Must not be empty.
   - Status: Must not be empty.
-- **Authentication**: **Required**. **Admin role needed**.
+- **Authentication**: Required. `Admin role needed`.
 - **Response**:
   - `200 OK`: Product added successfully.
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
+  - `403 Forbidden`: Forbidden `Authentication Mode`.
   - `400 Bad Request`: Validation errors.
 
-### `PUT /api/Product/Update`
-- **Description**: Updates an existing product. **Only accessible to users with the "Admin" role**.
+### `PUT /Product/UpdateProduct`
+- **Description**: Updates an existing product. **Only accessible to users with the "Admin" role `Authentication Mode`**.
 - **Request Body**:
   ```json
   {
-    "Name": "string (optional, max length: 50)",
+    "Name": "string (required, max length: 50)",
     "Description": "string (optional, max length: 150)",
-    "Price": "decimal (optional)",
-    "Stock": "int (optional)",
-    "Status": "string (optional)"
+    "Price": "decimal (required, must be between 0.01 and 99999999.99)",
+    "Stock": "int (required)",
+    "Status": "boolean (required)"
   }
   ```
 - **Constraints**:
-  -  Name: Maximum length of 50 characters, optional.
+  -  Name: Maximum length of 50 characters, required.
   -  Description: Maximum length of 150 characters, optional.
-  -  Price: Optional.
-  -  Stock: Optional.
-  -  Status: Optional.
-- **Authentication**: **Required**. **Admin role needed**.
+  -  Price: Must be a decimal value between 0.01 and 99999999.99, must not be empty.
+  -  Stock: required.
+  -  Status: required.
+- **Authentication**: Required. `Admin role needed`.
 - **Response**:
-  - `200 OK`: The updated product details as `AdminProductVM`.
-  - `404 Not Found`: The target product is not found.
+  - `200 OK`: A list of products as `ProductsViewModel`
+    ```json
+    {
+      "productId": "Guid",
+      "name": "string",
+      "description": "string",
+      "price": decimal,
+      "stock": int,
+      "status": boolean
+    }
+    ```
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
+  - `403 Forbidden`: Forbidden `Authentication Mode`.
+  - `404 Not Found`: No products available.
 
-### `DELETE /api/Product/{name}`
-- **Description**: Deletes a product by its name. **Only accessible to users with the "Admin" role**.
+### `DELETE /Product/DeleteProduct/{id}`
+- **Description**: Deletes a product by its id. **Only accessible to users with the "Admin" role `Authentication Mode`**.
 - **Parameters**:
-  - `name` (string, required): The name of the product to delete.
-- **Authentication**: **Required**. **Admin role needed**.
+  - `id` (Guid, required): The ID of the product to delete.
+- **Authentication**: Required. `Admin role needed`.
 - **Response**:
   - `200 OK`: Product deleted successfully.
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
+  - `403 Forbidden`: Forbidden `Authentication Mode`.
+  - `404 Not Found`: The target product is not found.
+
+## OrderController
+Handles Order-related operations.
+
+### `GET /Product/GetAllProducts`
+- **Description**: Retrieves all available products.
+- **Authentication**: Required.
+- **Response**:
+  - `200 OK`: A list of Orders as `List<OrdersViewModel> including List<OrderItemsViewModel>`
+    ```json
+    [
+      {
+        "orderId": Guid,
+        "amount": decimal,
+        "tax": decimal,
+        "totalAmount": decimal,
+        "orderDate": DateTime,
+        "userId": Guid,
+        "orderItems": [
+          {
+            "productId": Guid,
+            "quantity": int,
+            "cost": decimal
+          }
+        ]
+      }
+    ]
+  - `401 Unauthorized`: Unauthorized *Authentication Mode*.
+  - `404 Not Found`: No products available.
+
+### `POST /Order/AddOrder`
+- **Description**: Adds a new product.
+- **Request Body**:
+  ```json
+    {
+      "userId": "Guid (required)",
+      "orderItems": [
+        {
+          "productId": "Guid (required)",
+          "quantity": int (required)
+        }
+      ]
+    }
+  ```
+- **Constraints**:
+  - userId: must not be empty.
+  - productId: must not be empty.
+  - quantity: must not be empty.
+- **Authentication**: Required.
+- **Response**:
+  - `200 OK`: Product Added successfully.
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
+  - `404 Not Found` : Returned if the user or product is not found.
+  - `400 Bad Request`: Any errors.
+
+  ### `DELETE /DeleteOrder/{id}`
+- **Description**: Deletes an Order by its id.
+- **Parameters**:
+  - `id` (Guid, required): The ID of the Order to delete.
+- **Authentication**: Required.
+- **Response**:
+  - `200 OK`: Product deleted successfully.
+  - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: The target product is not found.

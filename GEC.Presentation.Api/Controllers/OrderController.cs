@@ -14,10 +14,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GEC.Presentation.Api.Controllers
 {
-    //[Authorize]
+    #if AuthMode
+    [Authorize]
+    #endif
     public class OrderController(IOrderService _orderService) : BaseApiController
     {
-        [HttpGet]
+        [HttpGet("GetAllOrders")]
         public async Task<IActionResult> GetAll()
         {
             var orders = await _orderService.GetAllOrdersAsync();
@@ -29,12 +31,12 @@ namespace GEC.Presentation.Api.Controllers
         //     var orders = await _orderService.GetAllUserOrdersAsync(name);
         //     return orders?.Count == 0 ? NotFound("No Orders Found") : Ok(orders.Adapt<List<OrdersViewModel>>());
         // }
-        [HttpPost]
+        [HttpPost("AddOrder")]
         public async Task<IActionResult> AddNewOrder(AddNewOrderRequest request){
             try{
                 var order = await _orderService.AddOrderAsync(request.Adapt<OrderDto>());
                 var orderVM = order.Adapt<OrdersViewModel>();
-                return orderVM == null ? NotFound("User Or Product Are not found") : Ok(orderVM);
+                return orderVM == null ? NotFound("User Or Product Are not found") : Ok("Product Added successfully");
             }catch(UserNotFoundException ex){
                 return NotFound(ex.Message);
             }catch(ProductNotFoundException ex){
@@ -45,7 +47,7 @@ namespace GEC.Presentation.Api.Controllers
                 return BadRequest();
             }
         }
-        [HttpDelete("{OrderId}")]
+        [HttpDelete("DeleteOrder/{OrderId}")]
         public async Task<IActionResult> DeleteOrder([FromRoute] Guid OrderId){
             var status = await _orderService.DeleteOrder(OrderId);
             return status ? Ok("Deleted") : NotFound("Cannot Found the Specified Order");

@@ -12,5 +12,8 @@ namespace GEC.Presentation.Api.ViewModels
         public required string Address { get; set; }
         public required string Phone { get; set;}
         public required string Email { get; set;}
+        #if AuthMode
+        public string? Token { get; set; }
+        #endif
     }
 }

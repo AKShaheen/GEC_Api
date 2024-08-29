@@ -7,6 +7,7 @@ namespace GEC.Business.Contracts.Requests
 {
     public class UpdateRequest
     {
+        public Guid ProductId { get; set; }
         public required string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }

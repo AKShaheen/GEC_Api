@@ -13,6 +13,8 @@ namespace GEC.Business.Services.Validations
     {
         public UpdateProductValidator()
         {
+            RuleFor(porduct => porduct.ProductId)
+                .NotEmpty();
             RuleFor(product => product.Name)
                 .Cascade(CascadeMode.Stop)
                 .InputRule(50);
@@ -21,7 +23,8 @@ namespace GEC.Business.Services.Validations
                 .MaximumLength(150);
             RuleFor(product => product.Price)
                 .Cascade(CascadeMode.Stop)
-                .NotEmpty();
+                .NotEmpty()
+                .InclusiveBetween(0.01m, 99999999.99m);
             RuleFor(product => product.Stock)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty();

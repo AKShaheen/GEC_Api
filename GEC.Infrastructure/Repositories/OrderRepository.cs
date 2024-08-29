@@ -13,7 +13,7 @@ namespace GEC.Infrastructure.Repositories
     {
         public async Task<List<Order>> GetAllAsync()
         {
-            return await _context.Orders.Include(c => c.OrderItems).ToListAsync();
+            return await _context.Orders.Include(c => c.OrderItems).Where(p => !p.IsDeleted).ToListAsync();
         }
         public async Task<List<Order>?> GetByIdAsync(Guid id){
             return await _context.Orders

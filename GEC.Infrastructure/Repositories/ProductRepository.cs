@@ -14,8 +14,6 @@ namespace GEC.Infrastructure.Repositories
         
         public async Task<bool> CreateAsync(Product productModel)
         {
-            if (await _context.Products.AnyAsync(p => p.Name == productModel.Name))
-                return false;
             productModel.Status = true;
             await _context.Products.AddAsync(productModel);
             await _context.SaveChangesAsync();
@@ -40,7 +38,7 @@ namespace GEC.Infrastructure.Repositories
         public async Task<Product?> UpdateAsync(Product productModel)
         {
 
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Name == productModel.Name);
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == productModel.ProductId);
             if(existingProduct == null) return null;
             
             existingProduct.Name = productModel.Name;
@@ -53,8 +51,8 @@ namespace GEC.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return existingProduct;
         }
-        public async Task<bool> DeleteAsync(string name){
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Name == name);
+        public async Task<bool> DeleteAsync(Guid id){
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
             if(existingProduct == null) return false;
             existingProduct.Status = false; 
             await _context.SaveChangesAsync();
