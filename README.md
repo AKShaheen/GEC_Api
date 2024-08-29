@@ -1,5 +1,5 @@
-
-# API Documentation
+# Generic Ecommerce API
+# Documentation
 
 ## Authentication
 ### Your Need First to Enable Authentication Mode By Doing The Following
