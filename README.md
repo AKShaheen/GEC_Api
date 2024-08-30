@@ -4,14 +4,23 @@
 
 ## 📑 Table of Contents
 
-| **🗂 Section**                      | **🔗 Endpoints**                                                                                      |
-|-------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **[🔐 Authentication](#authentication)**         |                                                                                                       |
-| **[🔒 Password Security](#password-security)**   |                                                                                                       |
-| **[👤 AccountController](#accountcontroller)**   | - [POST /Account/Register](#post-accountregister) <br> - [POST /Account/Login](#post-accountlogin)   |
-| **[🛒 ProductController](#productcontroller)**   | - [GET /Product/GetAllProducts](#get-productgetallproducts) <br> - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid) <br> - [POST /Product/AddProduct](#post-productaddproduct) <br> - [PUT /Product/UpdateProduct](#put-productupdateproduct) <br> - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid) |
-| **[📦 OrderController](#ordercontroller)**       | - [GET /Order/GetAllOrders](#get-ordergetallorders) <br> - [POST /Order/AddOrder](#post-orderaddorder) <br> - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)  |
-| **[🌱 Data Seeding](#data-seeding)**             | - [Seeding an Admin User](#seeding-an-admin-user)                                                    |
+- [🔐 Authentication](#authentication)
+- [🔒 Password Security](#password-security)
+- [📋 AccountController](#accountcontroller)
+  - [POST /Account/Register](#post-accountregister)
+  - [POST /Account/Login](#post-accountlogin)
+- [🛒 ProductController](#productcontroller)
+  - [GET /Product/GetAllProducts](#get-productgetallproducts)
+  - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid)
+  - [POST /Product/AddProduct](#post-productaddproduct)
+  - [PUT /Product/UpdateProduct](#put-productupdateproduct)
+  - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid)
+- [📦 OrderController](#ordercontroller)
+  - [GET /Order/GetAllOrders](#get-ordergetallorders)
+  - [POST /Order/AddOrder](#post-orderaddorder)
+  - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)
+- [🌱 Data Seeding](#data-seeding)
+  - [Seeding an Admin User](#seeding-an-admin-user)
 
 ---
 
