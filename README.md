@@ -6,12 +6,12 @@
 
 | **🗂 Section**                      | **🔗 Subsections**                                                                                     |
 |-------------------------------------|--------------------------------------------------------------------------------------------------------|
-| **[🔐 Authentication](#-authentication)**         |                                                                                                        |
-| **[🔒 Password Security](#-password-security)**   |                                                                                                        |
-| **[👤 AccountController](#-accountcontroller)**   | [View Endpoints](#accountcontroller-endpoints)                                                         |
-| **[🛒 ProductController](#-productcontroller)**   | [View Endpoints](#productcontroller-endpoints)                                                         |
-| **[📦 OrderController](#-ordercontroller)**       | [View Endpoints](#ordercontroller-endpoints)                                                           |
-| **[🌱 Data Seeding](#-data-seeding)**             | [View Details](#data-seeding-details)                                                                   |
+| **[🔐 Authentication](#-authentication)**         | [View Details](#-enabling-authentication-mode)                                                        |
+| **[🔒 Password Security](#-password-security)**   | [View Details](#-password-security)                                                         |
+| **[👤 AccountController](#-accountcontroller)**   | [View Endpoints](#post-accountregister)                                                         |
+| **[🛒 ProductController](#-productcontroller)**   | [View Endpoints](#get-productgetallproducts)                                                         |
+| **[📦 OrderController](#-ordercontroller)**       | [View Endpoints](#get-ordergetallorders)                                                           |
+| **[🌱 Data Seeding](#-data-seeding)**             | [View Details](#seeding-an-admin-user)                                                                   |
 
 ---
 ## 📝 Controllers Summary
