@@ -4,14 +4,46 @@
 
 ## 📑 Table of Contents
 
-| **🗂 Section**                      | **🔗 Endpoints**                                                                                      |
-|-------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **[🔐 Authentication](#-authentication)**         |                                                                                                       |
-| **[🔒 Password Security](#-password-security)**   |                                                                                                       |
-| **[👤 AccountController](#-accountcontroller)**   | - [POST /Account/Register](#post-accountregister) <br> - [POST /Account/Login](#post-accountlogin)   |
-| **[🛒 ProductController](#-productcontroller)**   | - [GET /Product/GetAllProducts](#get-productgetallproducts) <br> - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid) <br> - [POST /Product/AddProduct](#post-productaddproduct) <br> - [PUT /Product/UpdateProduct](#put-productupdateproduct) <br> - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid) |
-| **[📦 OrderController](#-ordercontroller)**       | - [GET /Order/GetAllOrders](#get-ordergetallorders) <br> - [POST /Order/AddOrder](#post-orderaddorder) <br> - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)  |
-| **[🌱 Data Seeding](#-data-seeding)**             | - [Seeding an Admin User](#seeding-an-admin-user)                                                    |
+| **🗂 Section**                      | **🔗 Subsections**                                                                                     |
+|-------------------------------------|--------------------------------------------------------------------------------------------------------|
+| **[🔐 Authentication](#-authentication)**         |                                                                                                        |
+| **[🔒 Password Security](#-password-security)**   |                                                                                                        |
+| **[👤 AccountController](#-accountcontroller)**   | [View Endpoints](#accountcontroller-endpoints)                                                         |
+| **[🛒 ProductController](#-productcontroller)**   | [View Endpoints](#productcontroller-endpoints)                                                         |
+| **[📦 OrderController](#-ordercontroller)**       | [View Endpoints](#ordercontroller-endpoints)                                                           |
+| **[🌱 Data Seeding](#-data-seeding)**             | [View Details](#data-seeding-details)                                                                   |
+
+---
+## 📝 Controllers Summary
+
+### **👤 AccountController Endpoints**
+
+| **HTTP Method** | **Endpoint**        | **Description**                          | **Authentication**    | **Response Status Codes**     |
+|-----------------|----------------------|------------------------------------------|------------------------|-------------------------------|
+| `POST`          | /Account/Register    | Registers a new user.                    | Not required           | `200 OK`, `400 Bad Request`   |
+| `POST`          | /Account/Login       | Authenticates a user and returns a JWT token. | Not required           | `200 OK`, `400 Bad Request`   |
+
+---
+
+### **🛒 ProductController Endpoints**
+
+| **HTTP Method** | **Endpoint**                | **Description**                                  | **Authentication**           | **Response Status Codes**             |
+|-----------------|------------------------------|--------------------------------------------------|-------------------------------|---------------------------------------|
+| `GET`           | /Product/GetAllProducts      | Retrieves all available products.                | Required (Authentication Mode) | `200 OK`, `401 Unauthorized`, `404 Not Found` |
+| `GET`           | /Product/GetProductsById/{id} | Retrieves a product by its ID.                   | Required (Authentication Mode) | `200 OK`, `401 Unauthorized`, `404 Not Found` |
+| `POST`          | /Product/AddProduct          | Adds a new product. **Admin role required**     | Required (Admin role needed) | `200 OK`, `401 Unauthorized`, `403 Forbidden`, `400 Bad Request` |
+| `PUT`           | /Product/UpdateProduct       | Updates an existing product. **Admin role required** | Required (Admin role needed) | `200 OK`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found` |
+| `DELETE`        | /Product/DeleteProduct/{id}  | Deletes a product by its ID. **Admin role required** | Required (Admin role needed) | `200 OK`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found` |
+
+---
+
+### **📦 OrderController Endpoints**
+
+| **HTTP Method** | **Endpoint**       | **Description**                                | **Authentication**    | **Response Status Codes**       |
+|-----------------|---------------------|------------------------------------------------|------------------------|---------------------------------|
+| `GET`           | /Order/GetAllOrders | Retrieves all available orders.                | Required               | `200 OK`, `401 Unauthorized`, `404 Not Found` |
+| `POST`          | /Order/AddOrder     | Adds a new order.                             | Required               | `200 OK`, `401 Unauthorized`, `404 Not Found`, `400 Bad Request` |
+| `DELETE`        | /Order/DeleteOrder/{id} | Deletes an order by its ID.     
 
 ---
 
