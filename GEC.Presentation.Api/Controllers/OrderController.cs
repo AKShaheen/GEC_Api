@@ -38,13 +38,11 @@ namespace GEC.Presentation.Api.Controllers
                 var orderVM = order.Adapt<OrdersViewModel>();
                 return orderVM == null ? NotFound("User Or Product Are not found") : Ok("Product Added successfully");
             }catch(UserNotFoundException ex){
-                return NotFound(ex.Message);
+                 return NotFound(ex.Message);
             }catch(ProductNotFoundException ex){
                 return NotFound(ex.Message);
             }catch(InvalidUserOperationException ex){
                 return BadRequest(ex.Message);
-            }catch(Exception){
-                return BadRequest();
             }
         }
         [HttpDelete("DeleteOrder/{OrderId}")]

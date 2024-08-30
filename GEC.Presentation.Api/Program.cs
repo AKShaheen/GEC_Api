@@ -3,11 +3,13 @@ using System.Text;
 using GEC.Business.Interfaces;
 using GEC.Runtime.Connections;
 using GEC.Runtime.DependencyInjection;
+using GEC.Presentation.Api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -49,6 +51,19 @@ var builder = WebApplication.CreateBuilder(args);
             };
         });
 #endif
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var problemDetails = new ProblemDetails()
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Empty Request",
+        };
+
+        return new BadRequestObjectResult(problemDetails);
+    };
+});
 }
 
 var app = builder.Build();
@@ -76,6 +91,7 @@ app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
 #endif
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

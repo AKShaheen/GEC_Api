@@ -1,5 +1,26 @@
 # Generic Ecommerce API Documentation
 
+## Table of Contents
+
+- [Authentication](#authentication)
+- [Password Security](#password-security)
+- [AccountController](#accountcontroller)
+  - [POST /Account/Register](#post-accountregister)
+  - [POST /Account/Login](#post-accountlogin)
+- [ProductController](#productcontroller)
+  - [GET /Product/GetAllProducts](#get-productgetallproducts)
+  - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid)
+  - [POST /Product/AddProduct](#post-productaddproduct)
+  - [PUT /Product/UpdateProduct](#put-productupdateproduct)
+  - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid)
+- [OrderController](#ordercontroller)
+  - [GET /Order/GetAllOrders](#get-ordergetallorders)
+  - [POST /Order/AddOrder](#post-orderaddorder)
+  - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)
+- [Data Seeding](#data-seeding)
+  - [Admin User Model](#admin-user-model)
+
+
 ## Authentication
 ### You need First to Enable Authentication Mode By Doing The Following
 #### Configuring Preprocessor Symbols in `Directory.Build.props` File
@@ -283,3 +304,16 @@ Handles Order-related operations.
   - `200 OK`: Product deleted successfully.
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
+
+## DataSeeding
+Handles user registration and login.
+
+### `Seeding an Admin User`
+Inside the Code There is A Seeding Service Configured With Some Admin Data
+**Login Credentials**:
+  ```json
+    {
+      "email": "admin@ldc.com",
+      "password": "AdminAdmin1#"
+    }
+  ```

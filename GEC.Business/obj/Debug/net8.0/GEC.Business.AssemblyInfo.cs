@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GEC.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf51885abdb0ee256b1630d0169685b7bb0cb68a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+104f28949e188567909c20a827eb83c81b292e42")]
 [assembly: System.Reflection.AssemblyProductAttribute("GEC.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GEC.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
