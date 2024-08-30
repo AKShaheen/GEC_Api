@@ -18,7 +18,7 @@
   - [POST /Order/AddOrder](#post-orderaddorder)
   - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)
 - [Data Seeding](#data-seeding)
-  - [Admin User Model](#admin-user-model)
+  - [Seeding an Admin User](#seeding-an-admin-user)
 
 
 ## Authentication
@@ -305,7 +305,7 @@ Handles Order-related operations.
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
 
-## DataSeeding
+## Data Seeding
 Handles user registration and login.
 
 ### `Seeding an Admin User`
