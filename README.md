@@ -1,58 +1,55 @@
-# Generic Ecommerce API Documentation
+# 📦 Generic Ecommerce API Documentation
 
-## Table of Contents
-<div style="border: 2px solid #4CAF50; padding: 10px; border-radius: 8px; background-color: #f9f9f9; color: #333;">
-- [Authentication](#authentication)
-- [Password Security](#password-security)
-- [AccountController](#accountcontroller)
-  - [POST /Account/Register](#post-accountregister)
-  - [POST /Account/Login](#post-accountlogin)
-- [ProductController](#productcontroller)
-  - [GET /Product/GetAllProducts](#get-productgetallproducts)
-  - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid)
-  - [POST /Product/AddProduct](#post-productaddproduct)
-  - [PUT /Product/UpdateProduct](#put-productupdateproduct)
-  - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid)
-- [OrderController](#ordercontroller)
-  - [GET /Order/GetAllOrders](#get-ordergetallorders)
-  - [POST /Order/AddOrder](#post-orderaddorder)
-  - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)
-- [Data Seeding](#data-seeding)
-  - [Seeding an Admin User](#seeding-an-admin-user)
-</div>
+---
 
-## Authentication
-### You need First to Enable Authentication Mode By Doing The Following
-#### Configuring Preprocessor Symbols in `Directory.Build.props` File
+## 📑 Table of Contents
 
-### Purpose
-Defining preprocessor symbols in a `Directory.Build.props` file allows you to compile sections of your code conditionally across the entire Solution. This is useful for enabling or disabling features based on the configuration.
+| **🗂 Section**                      | **🔗 Endpoints**                                                                                      |
+|-------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **[🔐 Authentication](#authentication)**         |                                                                                                       |
+| **[🔒 Password Security](#password-security)**   |                                                                                                       |
+| **[👤 AccountController](#accountcontroller)**   | - [POST /Account/Register](#post-accountregister) <br> - [POST /Account/Login](#post-accountlogin)   |
+| **[🛒 ProductController](#productcontroller)**   | - [GET /Product/GetAllProducts](#get-productgetallproducts) <br> - [GET /Product/GetProductsById/{id}](#get-productgetproductsbyidid) <br> - [POST /Product/AddProduct](#post-productaddproduct) <br> - [PUT /Product/UpdateProduct](#put-productupdateproduct) <br> - [DELETE /Product/DeleteProduct/{id}](#delete-productdeleteproductid) |
+| **[📦 OrderController](#ordercontroller)**       | - [GET /Order/GetAllOrders](#get-ordergetallorders) <br> - [POST /Order/AddOrder](#post-orderaddorder) <br> - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)  |
+| **[🌱 Data Seeding](#data-seeding)**             | - [Seeding an Admin User](#seeding-an-admin-user)                                                    |
 
-### Configuration Steps
+---
 
-#### 1. Open the Solution's `Directory.Build.props` File
-#### 2. Define Preprocessor Symbols
-Add the `<DefineConstants>` tag inside the `<PropertyGroup>` element to define your preprocessor symbols.
+## 🔐 Authentication
+
+### 🚀 Enabling Authentication Mode
+To enable authentication mode, configure preprocessor symbols in the `Directory.Build.props` file.
+
+### 🎯 Purpose
+Defining preprocessor symbols in a `Directory.Build.props` file allows you to compile sections of your code conditionally across the entire solution. This is useful for enabling or disabling features based on the configuration.
+
+### 🛠️ Configuration Steps
+
+1. **Open the Solution's `Directory.Build.props` File**
+2. **Define Preprocessor Symbols**
+   - Add the `<DefineConstants>` tag inside the `<PropertyGroup>` element to define your preprocessor symbols.
 
 Here's the basic structure to add a symbol named `AuthMode`:
+
 ```xml
-  <Project>
+<Project>
     <PropertyGroup>
         <!-- You Can Choose One Of the Below Options -->
-        <DefineConstants>AuthMode</DefineConstants> <!-- Defining The Tag to Enable Authentication Modo -->
-        <DefineConstants></DefineConstants> <!-- No Adding a Tag to Disable Authentication Modo -->
+        <DefineConstants>AuthMode</DefineConstants> <!-- Defining The Tag to Enable Authentication Mode -->
+        <DefineConstants></DefineConstants> <!-- No Adding a Tag to Disable Authentication Mode -->
     </PropertyGroup>
 </Project>
 ```
+### 🔑 Authentication Overview
 - The API uses **JWT (JSON Web Token)** for authentication. 
 - Include the token in the `Authorization` header in the format: **` Bearer {token}`**.
 - The endpoints in the `ProductController` marked with `[Authorize]` require authentication.
 - Some actions are restricted to users with the **"Admin"** role.
 
-## Password Security
+## 🔒 Password Security
 - **Passwords** are stored securely using **hashing and salting** techniques. This ensures that the passwords remain protected even if the database is compromised.
 
-## AccountController
+## 📋 AccountController
 Handles user registration and login.
 
 ### `POST /Account/Register`
@@ -127,9 +124,8 @@ Handles user registration and login.
     }
   - `400 Bad Request`: Validation errors or wrong username/password.
 
-## ProductController
-Handles product-related operations.
-**The Authentications Constraints Only Applied When Authentication Mode is Enabled**
+## 🛒 ProductController
+Handles product-related operations. **Note**: Authentication constraints only applied when **Authentication Mode** is enabled.
 
 ### `GET /Product/GetAllProducts`
 - **Description**: Retrieves all available products.
@@ -241,7 +237,7 @@ Handles product-related operations.
   - `403 Forbidden`: Forbidden `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
 
-## OrderController
+## 📦 OrderController
 Handles Order-related operations.
 
 ### `GET /Order/GetAllOrders`
@@ -305,7 +301,7 @@ Handles Order-related operations.
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
 
-## Data Seeding
+## 🌱 Data Seeding
 Handles user registration and login.
 
 ### `Seeding an Admin User`
