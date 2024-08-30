@@ -1,7 +1,7 @@
 # Generic Ecommerce API Documentation
 
 ## Table of Contents
-
+<div style="border: 2px solid #4CAF50; padding: 10px; border-radius: 8px; background-color: #f9f9f9; color: #333;">
 - [Authentication](#authentication)
 - [Password Security](#password-security)
 - [AccountController](#accountcontroller)
@@ -19,7 +19,7 @@
   - [DELETE /DeleteOrder/{id}](#delete-deleteorderid)
 - [Data Seeding](#data-seeding)
   - [Seeding an Admin User](#seeding-an-admin-user)
-
+</div>
 
 ## Authentication
 ### You need First to Enable Authentication Mode By Doing The Following
