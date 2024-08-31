@@ -24,8 +24,8 @@ namespace GEC.Infrastructure.Repositories
         public async Task<bool> IsExist(Guid id){
             return await _context.Users.AnyAsync(e => e.UserId == id);
         }
-        public async Task<User?> GetUserByNameAsync(string name){
-            return await _context.Users.FirstOrDefaultAsync(e => e.Name == name);
+        public async Task<User?> GetUserByIdAsync(Guid id){
+            return await _context.Users.FirstOrDefaultAsync(e => e.UserId == id);
         }
     }
 }

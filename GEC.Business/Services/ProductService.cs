@@ -28,9 +28,9 @@ namespace GEC.Business.Services
             return product.Adapt<ProductDto>();
         }
 
-        public async Task<bool> AddNewProductAsync(ProductDto product){
-            var status = await _productRepo.CreateAsync(product.Adapt<Product>());
-            return status;
+        public async Task<ProductDto> AddNewProductAsync(ProductDto product){
+            var productDto = await _productRepo.CreateAsync(product.Adapt<Product>());
+            return productDto.Adapt<ProductDto>();
         }
 
         public async Task<ProductDto?> UpdateProductAsync(ProductDto product){

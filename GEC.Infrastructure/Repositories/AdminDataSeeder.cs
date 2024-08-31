@@ -22,6 +22,7 @@ namespace GEC.Infrastructure.Repositories
                     Email = "admin@ldc.com",
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
+                    Status = "Active",
                     IsAdmin = true,
                     CreatedOn = DateTime.Now,
                     UpdatedOn = DateTime.Now

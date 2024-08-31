@@ -13,17 +13,16 @@ using GEC.Infrastructure.Interfaces.Authentication;
 
 namespace GEC.Business.Services.Account
 {
-    public class UserService : IUserService
+    public class UserService(IUserRepository _userRepository) : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        #if AuthMode
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public UserService(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator)
+        public UserService(JwtTokenGenerator jwtTokenGenerator)
         {
-            _userRepository = userRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
         }
-
+        #endif
         public async Task<UserDto> RegisterAsync(UserDto request)
         {
             var user = request.Adapt<User>();
@@ -37,6 +36,7 @@ namespace GEC.Business.Services.Account
             user.PasswordSalt = passwordHash.PasswordSalt;
             user.CreatedOn = DateTime.Now;
             user.UpdatedOn = DateTime.Now;
+            user.Status = request.Status;
             user.IsAdmin = false;
             user.IsDeleted = false;
             
@@ -52,6 +52,10 @@ namespace GEC.Business.Services.Account
             userDto.Token = _jwtTokenGenerator.GenerateToken(userModel);
             #endif
             return userDto;
+        }
+        public async Task<bool?> GetUserByIdAsync(Guid id){
+            var userModel = await _userRepository.GetUserByIdAsync(id);
+            return userModel.IsAdmin;
         }
     }
 }

@@ -11,6 +11,6 @@ namespace GEC.Infrastructure.Interfaces.EntityInterfaces
         Task<User> CreateAsync(User userModel);
         Task<User?> FindByEmailAsync(string email);
         Task<bool> IsExist(Guid id);
-        Task<User?> GetUserByNameAsync(string name);
+        Task<User?> GetUserByIdAsync(Guid id);
     }
 }

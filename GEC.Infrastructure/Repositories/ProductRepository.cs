@@ -12,12 +12,12 @@ namespace GEC.Infrastructure.Repositories
     public class ProductRepository(ApplicationDBContext _context) : IProductRepository
     {
         
-        public async Task<bool> CreateAsync(Product productModel)
+        public async Task<Product> CreateAsync(Product productModel)
         {
             productModel.Status = true;
             await _context.Products.AddAsync(productModel);
             await _context.SaveChangesAsync();
-            return true;
+            return productModel;
         }
         
         public async Task<List<Product>> GetAllAsync()
@@ -44,7 +44,7 @@ namespace GEC.Infrastructure.Repositories
             existingProduct.Name = productModel.Name;
             existingProduct.Description = productModel.Description;
             existingProduct.Price = productModel.Price;
-            existingProduct.Stock = productModel.Stock;
+            existingProduct.Type = productModel.Type;
             existingProduct.Status = true;
             existingProduct.UpdatedOn = DateTime.Now;
 

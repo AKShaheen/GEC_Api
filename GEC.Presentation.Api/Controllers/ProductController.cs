@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using GEC.Business.Contracts.Dtos;
 using GEC.Business.Contracts.Requests;
+using GEC.Business.Contracts.Response;
 using GEC.Business.Extensions;
 using GEC.Business.Interfaces;
 using GEC.Presentation.Api.ViewModels;
@@ -18,7 +19,7 @@ namespace GEC.Presentation.Api.Controllers
     #if AuthMode
     [Authorize]
     #endif
-    public class ProductController(IProductService _productService
+    public class ProductController(IProductService _productService, IUserService _userService
                                     ,IValidator<AddProductRequest> _addProductValidator,
                                     IValidator<UpdateRequest> _updateProductValidator) : BaseApiController
     {
@@ -38,15 +39,42 @@ namespace GEC.Presentation.Api.Controllers
         #if AuthMode
         [HttpPost("AddProduct"), Authorize(Roles = "Admin")]
         #else
-        [HttpPost("AddProduct")]
+        [HttpPost("AddProduct/{UserId}")]
         #endif
-        public async Task<IActionResult> AddNewProduct(AddProductRequest product)
+        public async Task<IActionResult> AddNewProduct([FromRoute] Guid UserId,AddProductRequest product)
         {
             var result = await _addProductValidator.ValidateAsync(product);
-            if(!result.IsValid)
-                return StatusCode(StatusCodes.Status400BadRequest, result.Errors.Select(x => x.ErrorMessage));
-            var responseStatus = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
-            return  responseStatus ? Ok("Added") : BadRequest("Check Your Inputs");
+            if(!result.IsValid){
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Invalid Input",
+                    Errors = string.Join("," , result.Errors.Select(x => x.ErrorMessage))
+                };
+                return BadRequest(badResponse);
+            }
+            var adminCred = await _userService.GetUserRoleByIdAsync(UserId);
+            if(adminCred == true){
+                var responseProduct = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
+                if(responseProduct == null){
+                    var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Can't Add Product"
+                };
+                return NotFound(badResponse);
+                }
+                var response = new BaseResponse<ProductsViewModel>{
+                    StatusCode = StatusCodes.Status200OK,
+                    Message =  "Customer Added Successfully",
+                    Data = responseProduct.Adapt<ProductsViewModel>()
+                };
+                return NotFound(response);
+            }else{
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Not Authorized"
+                };
+                return NotFound(badResponse);
+            }
         }
         #if AuthMode
         [HttpPut("UpdateProduct"), Authorize(Roles = "Admin")]

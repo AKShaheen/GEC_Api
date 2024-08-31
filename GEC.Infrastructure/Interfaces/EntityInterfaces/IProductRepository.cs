@@ -12,7 +12,7 @@ namespace GEC.Infrastructure.Interfaces.EntityInterfaces
         Task<Product?> GetByIdAsync(Guid id);
         Task<decimal> GetPriceByIdAsync(Guid id);
         Task<Product?> GetByNameAsync(string Name);
-        Task<bool> CreateAsync(Product productModel);
+        Task<Product> CreateAsync(Product productModel);
         Task<Product?> UpdateAsync(Product productModel);
         Task<bool> DeleteAsync(Guid id);
     }

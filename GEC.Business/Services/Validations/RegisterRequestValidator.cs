@@ -31,6 +31,11 @@ namespace GEC.Business.Services.Validations
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .PasswordRule();
+            RuleFor(r => r.Status)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .Must(value => value == "Active" | value == "InActive")
+                .WithMessage("The value must be exactly 'Active' or 'InActive'.");;
         }
     }
 }

@@ -14,8 +14,9 @@ namespace GEC.Infrastructure.Models
         public required string Email { get; set;}
         public required string PasswordHash { get; set;}
         public required string PasswordSalt { get; set;}
-        public DateTime CreatedOn { get; set;} = DateTime.Now;
-        public DateTime UpdatedOn { get; set;} = DateTime.Now;
+        public DateTime CreatedOn { get; set;} 
+        public DateTime UpdatedOn { get; set;}
+        public required string Status { get; set;}
         public bool IsAdmin { get; set;}
         public bool IsDeleted { get; set;}
         public ICollection<Order>? Orders { get; set; } 

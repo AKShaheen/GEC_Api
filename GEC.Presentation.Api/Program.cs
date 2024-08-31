@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Mvc;
+using GEC.Business.Contracts.Response;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -55,13 +56,14 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.InvalidModelStateResponseFactory = context =>
     {
-        var problemDetails = new ProblemDetails()
+        var baseResponse = new BaseResponse<string>
         {
-            Status = StatusCodes.Status400BadRequest,
-            Title = "Empty Request",
+            StatusCode = StatusCodes.Status400BadRequest,
+            Message = "Empty Request",
+            Data = ""
         };
 
-        return new BadRequestObjectResult(problemDetails);
+        return new BadRequestObjectResult(baseResponse);
     };
 });
 }
