@@ -14,7 +14,7 @@ namespace GEC.Infrastructure.Repositories
         
         public async Task<Product> CreateAsync(Product productModel)
         {
-            productModel.Status = true;
+            productModel.CreatedOn = DateTime.Now;
             await _context.Products.AddAsync(productModel);
             await _context.SaveChangesAsync();
             return productModel;
@@ -46,7 +46,7 @@ namespace GEC.Infrastructure.Repositories
             existingProduct.Price = productModel.Price;
             existingProduct.Stock = productModel.Stock;
             existingProduct.Type = productModel.Type;
-            existingProduct.Status = true;
+            existingProduct.Status = productModel.Status;
             existingProduct.UpdatedOn = DateTime.Now;
 
             await _context.SaveChangesAsync();

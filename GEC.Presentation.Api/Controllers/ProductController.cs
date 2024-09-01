@@ -86,7 +86,7 @@ namespace GEC.Presentation.Api.Controllers
             }
             var response = new BaseResponse<ProductsViewModel>{
                 StatusCode = StatusCodes.Status200OK,
-                Message =  "Customer Added Successfully",
+                Message =  "Product Added Successfully",
                 Data = responseProduct.Adapt<ProductsViewModel>()
             };
             return Ok(response);
@@ -117,7 +117,7 @@ namespace GEC.Presentation.Api.Controllers
             }
             var response = new BaseResponse<ProductsViewModel>{
                 StatusCode = StatusCodes.Status200OK,
-                Message =  "Customer Added Successfully",
+                Message =  "Product Updated Successfully",
                 Data = ProductResponse.Adapt<ProductsViewModel>()
             };
             return Ok(response);

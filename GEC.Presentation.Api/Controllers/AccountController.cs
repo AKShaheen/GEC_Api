@@ -44,7 +44,7 @@ namespace GEC.Presentation.Api.Controllers
             var response = new BaseResponse<UserViewModel>{
                 StatusCode = StatusCodes.Status200OK,
                 Message =  "Customer Added Successfully",
-                Data = request.Adapt<UserViewModel>()
+                Data = responseData.Adapt<UserViewModel>()
             };
             return Ok(response);
         }
@@ -64,8 +64,8 @@ namespace GEC.Presentation.Api.Controllers
                 var userDto = await _userService.LoginAsync(request.Email, request.Password);
                 var response = new BaseResponse<UserViewModel>{
                     StatusCode = StatusCodes.Status200OK,
-                    Message =  "Customer Added Successfully",
-                    Data = request.Adapt<UserViewModel>()
+                    Message =  "Login Successfully",
+                    Data = userDto.Adapt<UserViewModel>()
                 };
                 return Ok(response);
             }catch (KeyNotFoundException){

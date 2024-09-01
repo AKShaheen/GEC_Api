@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GEC.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e24a380a98312de69a9a7ab4a6717d71202f6a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c237b3f83aed17de99d9a2e323cebf746a7383c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("GEC.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GEC.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
