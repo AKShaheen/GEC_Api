@@ -7,6 +7,7 @@ namespace GEC.Presentation.Api.ViewModels
 {
     public class OrderItemsViewModel
     {
+        public Guid OrderItemId { get; set; }
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal Cost { get; set; }  

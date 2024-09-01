@@ -10,6 +10,7 @@ namespace GEC.Business.Contracts.Requests
         public required string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
+        public int Stock { get; set; }
         public string? Type { get; set; }
         public bool Status { get; set; }
         

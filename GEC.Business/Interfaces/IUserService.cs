@@ -9,7 +9,7 @@ namespace GEC.Business.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> RegisterAsync(UserDto request);
+        Task<UserDto?> RegisterAsync(UserDto request);
         Task<UserDto?> LoginAsync(string username, string password);
         Task<bool?> GetUserRoleByIdAsync(Guid id);
     }

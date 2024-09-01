@@ -19,7 +19,7 @@ namespace GEC.Presentation.Api.Controllers
     #if AuthMode
     [Authorize]
     #endif
-    public class ProductController(IProductService _productService, IUserService _userService
+    public class ProductController(IProductService _productService
                                     ,IValidator<AddProductRequest> _addProductValidator,
                                     IValidator<UpdateRequest> _updateProductValidator) : BaseApiController
     {
@@ -28,20 +28,44 @@ namespace GEC.Presentation.Api.Controllers
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _productService.GetAllAsync();
-            return products.Count == 0 ? NotFound("No products available") : Ok(products.Adapt<List<ProductsViewModel>>());
+            if(products.Count == 0){
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message = "No Products Available",
+                };
+                return NotFound(badResponse);
+            } 
+            var response = new BaseResponse<List<ProductsViewModel>>{
+                    StatusCode = StatusCodes.Status200OK,
+                    Message = "Product Retrieved Successfully",
+                    Data = products.Adapt<List<ProductsViewModel>>()
+                };
+            return Ok(response);
         }
 
         [HttpGet("GetProductsById/{Id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid Id){
             var product = await _productService.GetByIdAsync(Id);
-            return product == null ? NotFound() : Ok(product.Adapt<ProductsViewModel>());
+            if(product == null){
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status404NotFound,
+                    Message = "No Products Available",
+                };
+                return NotFound(badResponse);
+            }
+            var response = new BaseResponse<ProductsViewModel>{
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Product Retrieved Successfully",
+                Data = product.Adapt<ProductsViewModel>()
+            };
+            return Ok(response);
         }
         #if AuthMode
         [HttpPost("AddProduct"), Authorize(Roles = "Admin")]
         #else
-        [HttpPost("AddProduct/{UserId}")]
+        [HttpPost("AddProduct")]
         #endif
-        public async Task<IActionResult> AddNewProduct([FromRoute] Guid UserId,AddProductRequest product)
+        public async Task<IActionResult> AddNewProduct(AddProductRequest product)
         {
             var result = await _addProductValidator.ValidateAsync(product);
             if(!result.IsValid){
@@ -52,29 +76,20 @@ namespace GEC.Presentation.Api.Controllers
                 };
                 return BadRequest(badResponse);
             }
-            var adminCred = await _userService.GetUserRoleByIdAsync(UserId);
-            if(adminCred == true){
-                var responseProduct = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
-                if(responseProduct == null){
-                    var badResponse = new BaseResponse<string>{
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = "Can't Add Product"
-                };
-                return NotFound(badResponse);
-                }
-                var response = new BaseResponse<ProductsViewModel>{
-                    StatusCode = StatusCodes.Status200OK,
-                    Message =  "Customer Added Successfully",
-                    Data = responseProduct.Adapt<ProductsViewModel>()
-                };
-                return NotFound(response);
-            }else{
+            var responseProduct = await _productService.AddNewProductAsync(product.Adapt<ProductDto>());
+            if(responseProduct == null){
                 var badResponse = new BaseResponse<string>{
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = "Not Authorized"
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Can't Add Product"
                 };
                 return NotFound(badResponse);
             }
+            var response = new BaseResponse<ProductsViewModel>{
+                StatusCode = StatusCodes.Status200OK,
+                Message =  "Customer Added Successfully",
+                Data = responseProduct.Adapt<ProductsViewModel>()
+            };
+            return Ok(response);
         }
         #if AuthMode
         [HttpPut("UpdateProduct"), Authorize(Roles = "Admin")]
@@ -84,10 +99,28 @@ namespace GEC.Presentation.Api.Controllers
         public async Task<IActionResult> UpdateProduct(UpdateRequest product)
         {
             var result = await _updateProductValidator.ValidateAsync(product);
-            if(!result.IsValid)
-                return StatusCode(StatusCodes.Status400BadRequest, result.Errors.Select(x => x.ErrorMessage));
-            var response = await _productService.UpdateProductAsync(product.Adapt<ProductDto>());
-            return response == null ? NotFound("The Target Product Is Not Found") : Ok(response.Adapt<AdminProductVM>());
+            if(!result.IsValid){
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Invalid Input",
+                    Errors = string.Join("," , result.Errors.Select(x => x.ErrorMessage))
+                };
+                return BadRequest(badResponse);
+            }
+            var ProductResponse = await _productService.UpdateProductAsync(product.Adapt<ProductDto>());
+            if(ProductResponse == null){
+                var badResponse = new BaseResponse<string>{
+                StatusCode = StatusCodes.Status404NotFound,
+                Message = "The Target Product Is Not Found"
+                };
+                return NotFound(badResponse);
+            }
+            var response = new BaseResponse<ProductsViewModel>{
+                StatusCode = StatusCodes.Status200OK,
+                Message =  "Customer Added Successfully",
+                Data = ProductResponse.Adapt<ProductsViewModel>()
+            };
+            return Ok(response);
         }
         #if AuthMode
         [HttpDelete("DeleteProduct/{productId}"),Authorize(Roles = "Admin")]
@@ -96,8 +129,19 @@ namespace GEC.Presentation.Api.Controllers
         #endif
         public async Task<IActionResult> DeleteProduct([FromRoute] Guid productId)
         {
-            var response = await _productService.DeleteProductAsync(productId);
-            return response ? Ok("Deleted") : NotFound("The Target Product Is Not Found");
+            var DeleteResponse = await _productService.DeleteProductAsync(productId);
+            if(!DeleteResponse){
+                var badResponse = new BaseResponse<string>{
+                StatusCode = StatusCodes.Status404NotFound,
+                Message = "The Target Product Is Not Found"
+                };
+                return NotFound(badResponse);
+            }
+            var response = new BaseResponse<ProductsViewModel>{
+                StatusCode = StatusCodes.Status200OK,
+                Message =  "Product Deleted successfully",
+            };
+            return Ok(response);
         }
     }
 }

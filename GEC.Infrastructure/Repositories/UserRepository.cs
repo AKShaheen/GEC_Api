@@ -14,6 +14,7 @@ namespace GEC.Infrastructure.Repositories
     {
         public async Task<User> CreateAsync(User userModel)
         {
+            if(_context.Users.Any(p=> p.Email == userModel.Email)) throw new ApplicationException();
             await _context.AddAsync(userModel);
             await _context.SaveChangesAsync();
             return userModel;

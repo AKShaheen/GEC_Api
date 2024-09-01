@@ -34,6 +34,13 @@ namespace GEC.Presentation.Api.Controllers
                 //return StatusCode(StatusCodes.Status400BadRequest, result.Errors.Select(x => x.ErrorMessage));
             }
             var responseData = await _userService.RegisterAsync(request.Adapt<UserDto>());
+            if(responseData == null){
+                var badResponse = new BaseResponse<string>{
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "This email Address already exists"
+                };
+                return BadRequest(badResponse);
+            }
             var response = new BaseResponse<UserViewModel>{
                 StatusCode = StatusCodes.Status200OK,
                 Message =  "Customer Added Successfully",

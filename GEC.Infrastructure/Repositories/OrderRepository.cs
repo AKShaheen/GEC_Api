@@ -23,7 +23,7 @@ namespace GEC.Infrastructure.Repositories
         }
         public async Task<Order> AddAsync(Order order){
             order.IsDeleted = false;
-            order.OrderDate = DateTime.Now;
+            order.CreatedOn = DateTime.Now;
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
             return order;

@@ -23,7 +23,7 @@ namespace GEC.Business.Services.Account
             _jwtTokenGenerator = jwtTokenGenerator;
         }
         #endif
-        public async Task<UserDto> RegisterAsync(UserDto request)
+        public async Task<UserDto?> RegisterAsync(UserDto request)
         {
             var user = request.Adapt<User>();
             var passwordHash = PasswordHasher.Hash(request.Password);
@@ -39,9 +39,13 @@ namespace GEC.Business.Services.Account
             user.Status = request.Status;
             user.IsAdmin = false;
             user.IsDeleted = false;
-            
-            var userModel = await _userRepository.CreateAsync(user);
-            return userModel.Adapt<UserDto>();
+            try{
+                var userModel = await _userRepository.CreateAsync(user);
+                return userModel.Adapt<UserDto>();
+            }
+            catch (ApplicationException){
+                return null;
+            }
         }
         public async Task<UserDto?> LoginAsync(string email, string password){
             var userModel = await _userRepository.FindByEmailAsync(email) ?? throw new KeyNotFoundException("Could not find user");
@@ -53,9 +57,9 @@ namespace GEC.Business.Services.Account
             #endif
             return userDto;
         }
-        public async Task<bool?> GetUserByIdAsync(Guid id){
+        public async Task<bool?> GetUserRoleByIdAsync(Guid id){
             var userModel = await _userRepository.GetUserByIdAsync(id);
-            return userModel.IsAdmin;
+            return userModel?.IsAdmin;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace GEC.Infrastructure.Repositories
             existingProduct.Name = productModel.Name;
             existingProduct.Description = productModel.Description;
             existingProduct.Price = productModel.Price;
+            existingProduct.Stock = productModel.Stock;
             existingProduct.Type = productModel.Type;
             existingProduct.Status = true;
             existingProduct.UpdatedOn = DateTime.Now;

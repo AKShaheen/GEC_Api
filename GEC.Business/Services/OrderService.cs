@@ -41,12 +41,12 @@ namespace GEC.Business.Services
             var orders = await _orderRepo.GetAllAsync();
             return orders.Adapt<List<OrderDto>>();
         }
-        public async Task<List<OrderDto>?> GetAllUserOrdersAsync(string name){
-            var userModel = await _userRepo.GetUserByNameAsync(name);
-            if(userModel == null) return null;
-            var userOrders = await _orderRepo.GetByIdAsync(userModel.UserId);
-            return userOrders.Adapt<List<OrderDto>?>();
-        }
+        // public async Task<List<OrderDto>?> GetAllUserOrdersAsync(string name){
+        //     var userModel = await _userRepo.GetUserByNameAsync(name);
+        //     if(userModel == null) return null;
+        //     var userOrders = await _orderRepo.GetByIdAsync(userModel.UserId);
+        //     return userOrders.Adapt<List<OrderDto>?>();
+        // }
         public async Task<bool> DeleteOrder(Guid OrderId){
             var status = await _orderRepo.DeleteAsync(OrderId);
             return status; 
