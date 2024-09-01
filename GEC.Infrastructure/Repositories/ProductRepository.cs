@@ -23,7 +23,6 @@ namespace GEC.Infrastructure.Repositories
         public async Task<List<Product>> GetAllAsync()
         {
             return await _context.Products
-                                .Where(p => p.Status == true)
                                 .ToListAsync();
         }
 
