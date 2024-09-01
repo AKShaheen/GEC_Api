@@ -49,7 +49,7 @@ namespace GEC.Presentation.Api.Controllers
             if(product == null){
                 var badResponse = new BaseResponse<string>{
                     StatusCode = StatusCodes.Status404NotFound,
-                    Message = "No Products Available",
+                    Message = "No Product Found",
                 };
                 return NotFound(badResponse);
             }

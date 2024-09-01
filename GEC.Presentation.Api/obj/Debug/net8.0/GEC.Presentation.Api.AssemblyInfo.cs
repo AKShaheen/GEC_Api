@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GEC.Presentation.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9451b0efe1b9775e10eef04fdd060df728631ab7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67868a2b06855382c2a88b3452f684a36a392713")]
 [assembly: System.Reflection.AssemblyProductAttribute("GEC.Presentation.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GEC.Presentation.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

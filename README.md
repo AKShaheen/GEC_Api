@@ -94,6 +94,7 @@ Handles user registration and login.
     "Phone": "string (required, max length: 14)",
     "Email": "string (required, valid email format)",
     "Password": "string (required, must meet password rules)"
+    "Status": "string"
   }
   ```
 - **Constraints**: 
@@ -111,15 +112,33 @@ Handles user registration and login.
 - **Response**:
   - `200 OK`: The registered user's details as `UserViewModel`
       ```json
-    {
-      "UserId": "Guid",
-      "Name": "string",
-      "Address": "string",
-      "Phone": "string",
-      "Email": "string"
-    }
+      {
+          "statusCode": 200,
+          "message": "Customer Added Successfully",
+          "errors": null,
+          "data": {
+              "userId": "Guid",
+              "name": "string",
+              "address": "string",
+              "phone": "string",
+              "email": "string",
+              "createdOn": "DateTime",
+              "updatedOn": "DateTime",
+              "status": "string",
+              "isAdmin": "boolean",
+              "isDeleted": "boolean"
+          }
+      }
     ```
   - `400 Bad Request`: Validation errors.
+    ```json
+      {
+        "statusCode": 400,
+        "message": "Invalid Input",
+        "errors": "",
+        "data": null
+      }
+    ```
 
 ### `POST /Account/Login`
 - **Description**: Authenticates a user and returns a **JWT token**.
@@ -137,24 +156,49 @@ Handles user registration and login.
 - **Response**:
   - `200 OK`: The registered user's details as `UserViewModel`
       ```json
-    {
-      "UserId": "Guid",
-      "Name": "string",
-      "Address": "string",
-      "Phone": "string",
-      "Email": "string"
-    }
+      {
+          "statusCode": 200,
+          "message": "Login Successfully",
+          "errors": null,
+          "data": {
+              "userId": "761ef5bd-9a7c-48c0-998b-18e721dd051e",
+              "name": "Shaheen",
+              "address": "string",
+              "phone": "0101010",
+              "email": "shaheen@ldc.com",
+              "createdOn": "2024-09-01T17:40:29.9546107",
+              "updatedOn": "2024-09-01T17:40:29.9547308",
+              "status": "Active",
+              "isAdmin": "boolean",
+              "isDeleted": "boolean"
+          }
+      }
+      ```
+
   - `200 OK`: The registered user's details as `UserViewModel` **Authentication Mode Enabled**
       ```json
-    {
-      "UserId": "Guid",
-      "Name": "string",
-      "Address": "string",
-      "Phone": "string",
-      "Email": "string"
-      "Token": "string"
-    }
+      {
+          "statusCode": 200,
+          "message": "Login Successfully",
+          "errors": null,
+          "data": {
+              "name": "Shaheen",
+              "address": "string",
+              "phone": "0101010",
+              "email": "shaheen@ldc.com",
+              "Token": "string"
+          }
+      }
+      ```
   - `400 Bad Request`: Validation errors or wrong username/password.
+      ```json
+        {
+          "statusCode": 400,
+          "message": "",
+          "errors": [],
+          "data": null
+        }
+      ```
 
 ## 🛒 ProductController
 Handles product-related operations. **Note**: Authentication constraints only applied when **Authentication Mode** is enabled.
@@ -165,19 +209,36 @@ Handles product-related operations. **Note**: Authentication constraints only ap
 - **Response**:
   - `200 OK`: A list of products as `List<ProductsViewModel>`
     ```json
-    [
       {
-        "productId": "Guid",
-        "name": "string",
-        "description": "string",
-        "price": "decimal",
-        "stock": "int",
-        "status": "boolean"
-      },
-    ]
+          "statusCode": 200,
+          "message": "Product Retrieved Successfully",
+          "errors": null,
+          "data": [
+              {
+                  "productId": "Guid",
+                  "name": "string",
+                  "description": "string",
+                  "price": "decimal",
+                  "stock": "int",
+                  "type": "sting",
+                  "status": "boolean",
+                  "createdOn": "DateTime",
+                  "updatedOn": "DateTime",
+                  "isDeleted": "boolean",
+              },
+          ]
+      }
     ```
   - `401 Unauthorized`: Unauthorized *Authentication Mode*.
   - `404 Not Found`: No products available.
+    ```json
+      {
+        "statusCode": 404,
+        "message": "No products available",
+        "errors": null,
+        "data": null,
+      }
+    ```
 
 ### `GET /Product/GetProductsById/{id}`
 - **Description**: Retrieves a product by its ID.
@@ -187,16 +248,34 @@ Handles product-related operations. **Note**: Authentication constraints only ap
 - **Response**:
   - `200 OK`: The product details as `ProductsViewModel`
       ```json
-    {
-      "productId": "Guid",
-      "name": "string",
-      "description": "string",
-      "price": "decimal",
-      "stock": "int",
-      "status": "boolean"
-    }
+      {
+          "statusCode": 200,
+          "message": "Product Retrieved Successfully",
+          "errors": null,
+          "data": {
+              "productId": "Guid",
+              "name": "string",
+              "description": "string",
+              "price": "decimal",
+              "stock": "int",
+              "type": "string",
+              "status": "boolean",
+              "createdOn": "DateTime",
+              "updatedOn": "DateTime",
+              "isDeleted": "boolean"
+          }
+      }
+      ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: Product not found.
+      ```json
+      {
+        "statusCode": 404,
+        "message": "No product Found",
+        "errors": null,
+        "data": null,
+      }
+      ```
 
 ### `POST /Product/AddProduct`
 - **Description**: Add a new product. **Only accessible to users with the "Admin" role In `Authentication Mode`**.
@@ -207,6 +286,7 @@ Handles product-related operations. **Note**: Authentication constraints only ap
     "Description": "string (optional, max length: 150)",
     "Price": "decimal (required, must be between 0.01 and 99999999.99)",
     "Stock": "int (required)",
+    "Type": "string (required)"
     "Status": "boolean (required)"
   }
   ```
@@ -219,19 +299,48 @@ Handles product-related operations. **Note**: Authentication constraints only ap
 - **Authentication**: Required. `Admin role needed`.
 - **Response**:
   - `200 OK`: Product added successfully.
+    ```json
+      {
+        "statusCode": 200,
+        "message": "Product Added Successfully",
+        "errors": null,
+        "data": {
+            "productId": "Guid",
+            "name": "string",
+            "description": "string",
+            "price": "decimal",
+            "stock": "int",
+            "type": "string",
+            "status": "boolean",
+            "createdOn": "DateTime",
+            "updatedOn": "DateTime",
+            "isDeleted": "boolean"
+        }
+      }
+    ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `403 Forbidden`: Forbidden `Authentication Mode`.
   - `400 Bad Request`: Validation errors.
+      ```json
+        {
+          "statusCode": 400,
+          "message": "",
+          "errors": null,
+          "data": null
+        }
+      ```
 
 ### `PUT /Product/UpdateProduct`
 - **Description**: Updates an existing product. **Only accessible to users with the "Admin" role `Authentication Mode`**.
 - **Request Body**:
   ```json
   {
+    "ProductId": "Guid (required)",
     "Name": "string (required, max length: 50)",
     "Description": "string (optional, max length: 150)",
     "Price": "decimal (required, must be between 0.01 and 99999999.99)",
     "Stock": "int (required)",
+    "type": "string (required)",
     "Status": "boolean (required)"
   }
   ```
@@ -245,18 +354,44 @@ Handles product-related operations. **Note**: Authentication constraints only ap
 - **Response**:
   - `200 OK`: A list of products as `ProductsViewModel`
     ```json
-    {
-      "productId": "Guid",
-      "name": "string",
-      "description": "string",
-      "price": "decimal",
-      "stock": "int",
-      "status": "boolean"
-    }
+      {
+        "statusCode": 200,
+        "message": "Product Updated Successfully",
+        "errors": null,
+        "data": {
+            "productId": "Guid",
+            "name": "string",
+            "description": "string",
+            "price": "decimal",
+            "stock": "int",
+            "type": "string",
+            "status": "boolean",
+            "createdOn": "DateTime",
+            "updatedOn": "DateTime",
+            "isDeleted": "boolean"
+        }
+      }
     ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `403 Forbidden`: Forbidden `Authentication Mode`.
   - `404 Not Found`: No products available.
+    ```json
+      {
+        "statusCode": 404,
+        "message": "The Target Product Is Not Found",
+        "errors": null,
+        "data": null
+      }
+    ```
+  - `400 Bad Request`: Validation errors.
+    ```json
+      {
+        "statusCode": 400,
+        "message": "",
+        "errors": null,
+        "data": null
+      }
+    ```
 
 ### `DELETE /Product/DeleteProduct/{id}`
 - **Description**: Deletes a product by its id. **Only accessible to users with the "Admin" role `Authentication Mode`**.
@@ -265,9 +400,25 @@ Handles product-related operations. **Note**: Authentication constraints only ap
 - **Authentication**: Required. `Admin role needed`.
 - **Response**:
   - `200 OK`: Product deleted successfully.
+    ```json
+      {
+        "statusCode": 200,
+        "message": "Product Deleted successfully",
+        "errors": null,
+        "data": null
+      }
+    ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `403 Forbidden`: Forbidden `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
+    ```json
+      {
+        "statusCode": 404,
+        "message": "The Target Product Is Not Found",
+        "errors": null,
+        "data": null
+      }
+    ```
 
 ## 📦 OrderController
 Handles Order-related operations.
@@ -278,25 +429,42 @@ Handles Order-related operations.
 - **Response**:
   - `200 OK`: A list of Orders as `List<OrdersViewModel> including List<OrderItemsViewModel>`
     ```json
-    [
       {
-        "orderId": "Guid",
-        "amount": "decimal",
-        "tax": "decimal",
-        "totalAmount": "decimal",
-        "orderDate": "DateTime",
-        "userId": "Guid",
-        "orderItems": [
-          {
-            "productId": "Guid",
-            "quantity": "int",
-            "cost": "decimal"
-          }
-        ]
+          "statusCode": 200,
+          "message": "Orders Retrieved Successfully",
+          "errors": null,
+          "data": [
+              {
+                  "orderId": "Guid",
+                  "amount": "decimal",
+                  "tax": "decimal",
+                  "totalAmount": "decimal",
+                  "createdOn": "DateTime",
+                  "updatedOn": "DateTime",
+                  "userId": "Guid",
+                  "isDeleted": "boolean",
+                  "orderItems": [
+                      {
+                          "orderItemId": "Guid",
+                          "productId": "Guid",
+                          "quantity": "int",
+                          "cost": "decimal"
+                      }
+                  ]
+              }
+          ]
       }
-    ]
+    ```
   - `401 Unauthorized`: Unauthorized *Authentication Mode*.
-  - `404 Not Found`: No products available.
+  - `404 Not Found`: No Orders available.
+      ```json
+        {
+          "statusCode": 404,
+          "message": "No Orders Found",
+          "errors": null,
+          "data": null,
+        }
+      ```
 
 ### `POST /Order/AddOrder`
 - **Description**: Add a new product.
@@ -319,9 +487,52 @@ Handles Order-related operations.
 - **Authentication**: Required.
 - **Response**:
   - `200 OK`: Product Added successfully.
+      ```json
+        {
+            "statusCode": 200,
+            "message": "Orders Added Successfully",
+            "errors": null,
+            "data": [
+                {
+                    "orderId": "Guid",
+                    "amount": "decimal",
+                    "tax": "decimal",
+                    "totalAmount": "decimal",
+                    "createdOn": "DateTime",
+                    "updatedOn": "DateTime",
+                    "userId": "Guid",
+                    "isDeleted": "boolean",
+                    "orderItems": [
+                        {
+                            "orderItemId": "Guid",
+                            "productId": "Guid",
+                            "quantity": "int",
+                            "cost": "decimal"
+                        }
+                    ]
+                }
+            ]
+        }
+      ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: Returned if the user or product is not found.
+    ```json
+      {
+        "statusCode": 404,
+        "message": "",
+        "errors": null,
+        "data": null
+      }
+    ```
   - `400 Bad Request`: Any errors.
+    ```json
+      {
+        "statusCode": 400,
+        "message": "Invalid Request",
+        "errors": null,
+        "data": ""
+      }
+    ```
 
   ### `DELETE /DeleteOrder/{id}`
 - **Description**: Deletes an Order by its ID.
@@ -330,8 +541,24 @@ Handles Order-related operations.
 - **Authentication**: Required.
 - **Response**:
   - `200 OK`: Product deleted successfully.
+    ```json
+      {
+        "statusCode": 200,
+        "message": "Order Deleted successfully",
+        "errors": null,
+        "data": null
+      }
+    ```
   - `401 Unauthorized`: Unauthorized `Authentication Mode`.
   - `404 Not Found`: The target product is not found.
+    ```json
+      {
+        "statusCode": 404,
+        "message": "Invalid Order Id",
+        "errors": null,
+        "data": null
+      }
+    ```
 
 ## 🌱 Data Seeding
 Handles user registration and login.

@@ -59,7 +59,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         var baseResponse = new BaseResponse<string>
         {
             StatusCode = StatusCodes.Status400BadRequest,
-            Message = "Empty Request",
+            Message = "Invalid Request",
             Data = ""
         };
 
