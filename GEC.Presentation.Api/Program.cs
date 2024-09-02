@@ -68,12 +68,18 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         return new BadRequestObjectResult(baseResponse);
     };
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 }
 
 var app = builder.Build();
-{
 
-}
 try 
 {
     using var scope = app.Services.CreateScope();
@@ -106,6 +112,7 @@ app.UseHttpsRedirection();
     app.UseAuthorization();
 #endif
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseCors("AllowSpecificOrigin");
 app.MapControllers();
 
 app.Run();
