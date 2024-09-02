@@ -1,0 +1,26 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vscode/
+.vs/
+*.user
+*.suo
+
+# Ignore build output directories
+**/bin/
+**/obj/
+
+# Ignore NuGet packages
+*.nupkg
+
+# Ignore build outputs
+*.exe
+*.dll
+*.pdb
+
+# Ignore logs and cache files
+*.log
+*.cache
+
+# Ignore Rider directories
+.idea/
+*.sln.iml
