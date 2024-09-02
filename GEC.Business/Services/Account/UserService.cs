@@ -10,19 +10,12 @@ using Mapster;
 using GEC.Business.Services.PasswordHash;
 using GEC.Infrastructure.Models;
 using GEC.Infrastructure.Interfaces.Authentication;
+using GEC.Business.Services.Authentication;
 
 namespace GEC.Business.Services.Account
 {
-    public class UserService(IUserRepository _userRepository) : IUserService
+    public class UserService(IUserRepository _userRepository, IJwtTokenGenerator _jwtTokenGenerator) : IUserService
     {
-        #if AuthMode
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-
-        public UserService(JwtTokenGenerator jwtTokenGenerator)
-        {
-            _jwtTokenGenerator = jwtTokenGenerator;
-        }
-        #endif
         public async Task<UserDto?> RegisterAsync(UserDto request)
         {
             var user = request.Adapt<User>();

@@ -1,3 +1,4 @@
+
 //Author @AKShaheen
 using System.Text;
 using GEC.Business.Interfaces;
@@ -11,6 +12,7 @@ using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Mvc;
 using GEC.Business.Contracts.Response;
+using GEC.Business.Services.MigrationsBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -74,10 +76,20 @@ var app = builder.Build();
 }
 try 
 {
-    var seeder = app.Services.CreateScope().ServiceProvider.GetRequiredService<IDataSeeder>();
-    await seeder.SeedAdminDataAsync();
-}catch (Exception e){
+    using var scope = app.Services.CreateScope();
+    {
+        var dbMigrator = scope.ServiceProvider.GetRequiredService<IDbMigratorService>();
+        dbMigrator.MigrateDatabase();
+        var seeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+        await seeder.SeedAdminDataAsync();
+    }
+}
+catch (Exception e){
     Console.WriteLine($"An error occurred while seeding the database: {e.Message}");
+}
+
+{
+
 }
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

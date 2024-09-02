@@ -6,6 +6,8 @@ using GEC.Business.Interfaces;
 using GEC.Business.Services;
 using GEC.Business.Services.Account;
 using GEC.Business.Services.Authentication;
+using GEC.Business.Services.MigrationsBuilder;
+using GEC.Business.Services.Repositories;
 using GEC.Business.Services.Seeder;
 using GEC.Infrastructure.Interfaces.Authentication;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,7 @@ namespace GEC.Runtime.DependencyInjection
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IDataSeeder, AdminDataSeeder>();
+            services.AddScoped<IDbMigratorService, DbMigratorService>();
 
             return services;
         }
