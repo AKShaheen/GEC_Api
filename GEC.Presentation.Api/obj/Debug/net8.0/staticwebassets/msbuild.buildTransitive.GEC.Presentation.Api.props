@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\GEC.Presentation.Api.props" />
-</Project>
